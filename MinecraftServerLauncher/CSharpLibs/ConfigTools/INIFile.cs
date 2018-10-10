@@ -9,6 +9,10 @@ namespace CSharpLibs.ConfigTools
 {
     class INIFile
     {
+        // Changed the MinecraftServerProperties to VirtualGroup
+        // Added VirtualGroupName for reference.
+        private const string VirtualGroupName = "&&VIRTUAL&&";
+
         #region ===== Structures =====
 
         private struct KeyPair
@@ -64,7 +68,7 @@ namespace CSharpLibs.ConfigTools
                     return g;
                 }
             }
-            if (groupName == "" && MinecraftServerProperties)
+            if (groupName == "" && VirtualGrouping)
             {
                 return 0;
             }
@@ -135,7 +139,7 @@ namespace CSharpLibs.ConfigTools
         /// <summary>
         /// Determines whether the INI file is a Minecraft server.properties file.
         /// </summary>
-        public bool MinecraftServerProperties { get; set; } = false;
+        public bool VirtualGrouping { get; set; } = false;
 
         #endregion
 
@@ -289,7 +293,7 @@ namespace CSharpLibs.ConfigTools
 
                 if(line.Length > 0)
                 {
-                    if (MinecraftServerProperties && line[0] == '#')
+                    if (VirtualGrouping && line[0] == '#')
                     {
                         // Here we need to store the already written comments!
                         Array.Resize(ref Comments, Comments.Length + 1);
@@ -308,10 +312,10 @@ namespace CSharpLibs.ConfigTools
                         }
                         else if(line.IndexOf('=') > -1)
                         {
-                            if (groupIndex == -1 && MinecraftServerProperties)
+                            if (groupIndex == -1 && VirtualGrouping)
                             {
                                 Array.Resize(ref mvarGroups, mvarGroups.Length + 1);
-                                mvarGroups[mvarGroups.Length - 1] = new INIGroup("$$MINECRAFT$$");
+                                mvarGroups[mvarGroups.Length - 1] = new INIGroup(VirtualGroupName);
                                 groupIndex = mvarGroups.Length - 1;
                             }
                             if(groupIndex > -1)
@@ -375,7 +379,7 @@ namespace CSharpLibs.ConfigTools
 
             for (int g = 0; g < mvarGroups.Length; g++)
             {
-                if (MinecraftServerProperties && mvarGroups[g].Name == "$$MINECRAFT$$")
+                if (VirtualGrouping && mvarGroups[g].Name == VirtualGroupName)
                 {
                     for (int c = 0; c < Comments.Length; c++)
                     {
@@ -457,6 +461,12 @@ namespace CSharpLibs.ConfigTools
             Load(filePathName);
         }
 
+        public INIFile(string filePathName, bool virtualGrouping)
+        {
+            mvarGroups = new INIGroup[0];
+            VirtualGrouping = virtualGrouping;
+            Load(filePathName);
+        }
 
 
         // INIFile ini = new INIFile(@"C:\Temp\Config.ini");

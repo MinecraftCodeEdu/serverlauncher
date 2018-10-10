@@ -108,7 +108,6 @@ namespace CSharpLibs.Minecraft
 
         #endregion
 
-
         #region ===== Constructor =====
 
         public ServerProfileConfig()

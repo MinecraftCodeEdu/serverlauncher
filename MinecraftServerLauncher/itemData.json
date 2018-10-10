@@ -1,0 +1,47 @@
+{
+	"cat_teleport": {
+		"name" : "텔레포트 이용하기",
+		"item" : [
+			{"itemName" : "돌", "dataName" : "minecraft:stone", "dataValue" : 0},
+			{"itemName" : "흙", "dataName" : "minecraft:dirt", "dataValue" : 0}
+		]
+	},
+	"cat_tresure": {
+		"name" : "보물찾기",
+		"item" : [
+		]
+	},
+	"cat_fence": {
+		"name" : "울타리 만들기",
+		"item" : [
+			{"itemName" : "울타리", "dataName" : "minecraft:fence", "dataValue" : 0}
+		]
+	},
+	"cat_wheat": {
+		"name" : "대규모 밀밭 만들기",
+		"item" : [
+		]
+	},
+	"cat_hunt": {
+		"name" : "사냥하고 돌아오기",
+		"item" : [
+		]
+	},
+	"cat_juke": {
+		"name" : "주크박스 만들기",
+		"item" : [
+			{"itemName" : "버튼", "dataName" : "minecraft:stone_button", "dataValue" : 0}
+		]
+	},
+	"cat_roller": {
+		"name" : "롤러코스터 만들기",
+		"item" : [
+			{"itemName" : "레드스톤 횃불", "dataName" : "minecraft:redstone_torch", "dataValue" : 0}
+		]
+	},
+	"cat_castle": {
+		"name" : "요새 만들기",
+		"item" : [
+		]
+	}
+}
