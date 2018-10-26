@@ -1050,7 +1050,7 @@ namespace MinecraftServerLauncher
         }
 
         /// <summary>
-        /// WebServer Stop
+        /// WebServer Stopp
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1115,7 +1115,7 @@ namespace MinecraftServerLauncher
         }
 
         #endregion
-
+         
         #region Method: FixPath
 
         /// <summary>
