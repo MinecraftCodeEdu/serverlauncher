@@ -249,6 +249,8 @@ namespace MinecraftServerLauncher
 
         #region ===== Control Events =====
 
+        #region Event: Deprecated Function
+        // ===== Deprecated Function =====
         private void txtMinecraftServerPath_TextChanged(object sender, EventArgs e)
         {
             btnSave.Enabled = true;
@@ -273,6 +275,71 @@ namespace MinecraftServerLauncher
 
             dialog.Dispose();
         }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            string filePathName = txtMinecraftServerPath.Text.Trim();
+
+            if (filePathName.Length > 0)
+            {
+                if (File.Exists(filePathName))
+                {
+                    config.MinecraftPath = filePathName.Substring(0, filePathName.LastIndexOf('\\') + 1);
+                    config.MinecraftJar = filePathName.Substring(filePathName.LastIndexOf('\\') + 1, filePathName.Length - (filePathName.LastIndexOf('\\') + 1));
+                    config.MemorySize = (int)numericUpDown1.Value;
+                    config.Save();
+                    btnSave.Enabled = false;
+                }
+            }
+            else
+            {
+                //TODO: throw an error message to the user!
+                MessageBox.Show(
+                    "The path and filename of the Minecraft server jar that you have specified is not valid.\n\nPlease check and try again.",
+                    "Invalid Minecraft server jar!",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation
+                    );
+                txtMinecraftServerPath.Focus();
+            }
+        }
+
+        private void btnStart2_Click(object sender, EventArgs e)
+        {
+            if (config.MinecraftPath.Length > 0 && config.MinecraftJar.Length > 0 && config.MemorySize > 0)
+            {
+                MinecraftServer.RemoteConsolePort = 26665;
+                MinecraftServer.UseRandomizedRConPassword = true;
+                MinecraftServer.ConfigureServer(config.MinecraftPath, config.MinecraftJar, config.MemorySize);
+                if (!MinecraftServer.Start())
+                {
+                    MessageBox.Show(
+                        "Some configuration mismatch prevented the server from starting!\n\nPlease check the configuration and try again.",
+                        "Unable to start Minecraft server!",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Exclamation
+                        );
+                }
+            }
+        }
+
+        private void btnServerInfo_Click(object sender, EventArgs e)
+        {
+            if (config.MinecraftPath.Length > 0 && config.MinecraftJar.Length > 0)
+            {
+                INIFile serverProp = new INIFile();
+                serverProp.VirtualGrouping = true;
+                serverProp.Load(config.MinecraftPath + "server.properties");
+
+                string msg = "";
+                msg += "Server MOTD: " + serverProp.GetValue("", "motd") + "\n";
+                msg += "RCon port: " + serverProp.GetValue("", "rcon.port") + "\n";
+                msg += "RCon password: " + serverProp.GetValue("", "rcon.password") + "\n";
+
+                MessageBox.Show(msg);
+            }
+        }
+        #endregion
 
         private void btnStart_Click(object sender, EventArgs e)
         {
@@ -329,73 +396,9 @@ namespace MinecraftServerLauncher
 
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            string filePathName = txtMinecraftServerPath.Text.Trim();
-
-            if(filePathName.Length > 0)
-            {
-                if (File.Exists(filePathName))
-                {
-                    config.MinecraftPath = filePathName.Substring(0, filePathName.LastIndexOf('\\') + 1);
-                    config.MinecraftJar = filePathName.Substring(filePathName.LastIndexOf('\\') + 1, filePathName.Length - (filePathName.LastIndexOf('\\') + 1));
-                    config.MemorySize = (int)numericUpDown1.Value;
-                    config.Save();
-                    btnSave.Enabled = false;
-                }
-            }
-            else
-            {
-                //TODO: throw an error message to the user!
-                MessageBox.Show(
-                    "The path and filename of the Minecraft server jar that you have specified is not valid.\n\nPlease check and try again.",
-                    "Invalid Minecraft server jar!",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Exclamation
-                    );
-                txtMinecraftServerPath.Focus();
-            }
-        }
-
-        private void btnStart2_Click(object sender, EventArgs e)
-        {
-            if (config.MinecraftPath.Length > 0 && config.MinecraftJar.Length > 0 && config.MemorySize > 0)
-            {
-                MinecraftServer.RemoteConsolePort = 26665;
-                MinecraftServer.UseRandomizedRConPassword = true;
-                MinecraftServer.ConfigureServer(config.MinecraftPath, config.MinecraftJar, config.MemorySize);
-                if (!MinecraftServer.Start())
-                {
-                    MessageBox.Show(
-                        "Some configuration mismatch prevented the server from starting!\n\nPlease check the configuration and try again.",
-                        "Unable to start Minecraft server!",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Exclamation
-                        );
-                }
-            }      
-        }
-
         private void btnStop_Click(object sender, EventArgs e)
         {
             MinecraftServer.Stop();
-        }
-
-        private void btnServerInfo_Click(object sender, EventArgs e)
-        {
-            if (config.MinecraftPath.Length > 0 && config.MinecraftJar.Length > 0)
-            {
-                INIFile serverProp = new INIFile();
-                serverProp.VirtualGrouping = true;
-                serverProp.Load(config.MinecraftPath + "server.properties");
-
-                string msg = "";
-                msg += "Server MOTD: " + serverProp.GetValue("", "motd") + "\n";
-                msg += "RCon port: " + serverProp.GetValue("", "rcon.port") + "\n";
-                msg += "RCon password: " + serverProp.GetValue("", "rcon.password") + "\n";
-
-                MessageBox.Show(msg);
-            }
         }
 
         private void txtConsole_TextChanged(object sender, EventArgs e)

@@ -284,12 +284,12 @@
             // 
             this.txtConsole.AcceptsReturn = true;
             this.txtConsole.BackColor = System.Drawing.SystemColors.Window;
-            this.txtConsole.Location = new System.Drawing.Point(348, 189);
+            this.txtConsole.Location = new System.Drawing.Point(348, 248);
             this.txtConsole.Multiline = true;
             this.txtConsole.Name = "txtConsole";
             this.txtConsole.ReadOnly = true;
             this.txtConsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtConsole.Size = new System.Drawing.Size(516, 277);
+            this.txtConsole.Size = new System.Drawing.Size(516, 218);
             this.txtConsole.TabIndex = 12;
             this.txtConsole.TextChanged += new System.EventHandler(this.txtConsole_TextChanged);
             // 
@@ -777,7 +777,7 @@
             this.playerList.ItemHeight = 12;
             this.playerList.Location = new System.Drawing.Point(6, 20);
             this.playerList.Name = "playerList";
-            this.playerList.Size = new System.Drawing.Size(168, 140);
+            this.playerList.Size = new System.Drawing.Size(168, 199);
             this.playerList.TabIndex = 19;
             // 
             // grpPlayers
@@ -785,7 +785,7 @@
             this.grpPlayers.Controls.Add(this.playerList);
             this.grpPlayers.Location = new System.Drawing.Point(684, 12);
             this.grpPlayers.Name = "grpPlayers";
-            this.grpPlayers.Size = new System.Drawing.Size(180, 171);
+            this.grpPlayers.Size = new System.Drawing.Size(180, 230);
             this.grpPlayers.TabIndex = 26;
             this.grpPlayers.TabStop = false;
             this.grpPlayers.Text = "Players";
