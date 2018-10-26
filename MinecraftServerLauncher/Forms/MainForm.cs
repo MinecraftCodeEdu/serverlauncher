@@ -1050,7 +1050,7 @@ namespace MinecraftServerLauncher
         }
 
         /// <summary>
-        /// WebServer Stopp
+        /// WebServer Stoppp
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
