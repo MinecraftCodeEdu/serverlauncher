@@ -95,7 +95,7 @@ namespace MinecraftServerLauncher
             MinecraftServerRunning = true;
 
             txtCommand.Enabled = true;
-            //btnExecute.Enabled = true;
+
             enableButton();
         }
 
@@ -108,11 +108,7 @@ namespace MinecraftServerLauncher
             }
 
             // Past this it's safe to mess with the UI and this data
-            playerList.Items.Clear();
-            for(int p = 0; p < MinecraftServer.OnlinePlayers.Count; p++)
-            {
-                playerList.Items.Add(MinecraftServer.OnlinePlayers[p].Name);
-            }
+            updatePlayerInformation();
         }
 
         private void MinecraftServer_PlayerParted(string playerName, string playerUUID, byte[] ip)
@@ -124,14 +120,8 @@ namespace MinecraftServerLauncher
             }
 
             // Past this it's safe to mess with the UI and this data
-            playerList.Items.Clear();
-            for (int p = 0; p < MinecraftServer.OnlinePlayers.Count; p++)
-            {
-                playerList.Items.Add(MinecraftServer.OnlinePlayers[p].Name);
-            }
+            updatePlayerInformation();
         }
-
-
 
         private void MinecraftServer_ServerShuttingDown(int serverHostID)
         {
@@ -146,11 +136,10 @@ namespace MinecraftServerLauncher
             System.Diagnostics.Debug.WriteLine("<<" + serverHostID.ToString() + ">> Minecraft server IS SHUTTING DOWN!!!");
 
             btnStop.Enabled = false;
-            //btnStart.Enabled = true; // ServerStopped doesn't work
+            btnStart.Enabled = true; //
             MinecraftServerRunning = false;
 
             txtCommand.Enabled = false;
-            //btnExecute.Enabled = false;
             disableButton();
         }
 
@@ -243,6 +232,35 @@ namespace MinecraftServerLauncher
             {
                 comboItemCategory.SelectedIndex = 0;
             }
+        }
+
+        #endregion
+
+        #region ===== Combobox Management =====
+
+        /// <summary>
+        /// Combobox item initialization
+        /// </summary>
+        public void comboInit()
+        {
+            comboItemPlayer.Items.Add("모든 플레이어");
+            comboItemPlayer.SelectedIndex = 0;
+        }
+
+        /// <summary>
+        /// Update playerList and Combobox when players join or logout
+        /// </summary>
+        public void updatePlayerInformation()
+        {
+            playerList.Items.Clear();
+            comboItemPlayer.Items.Clear();
+            comboItemPlayer.Items.Add("모든 플레이어");
+            for (int p = 0; p < MinecraftServer.OnlinePlayers.Count; p++)
+            {
+                playerList.Items.Add(MinecraftServer.OnlinePlayers[p].Name);
+                comboItemPlayer.Items.Add(MinecraftServer.OnlinePlayers[p].Name);
+            }
+            comboItemPlayer.SelectedIndex = 0;
         }
 
         #endregion
@@ -443,6 +461,7 @@ namespace MinecraftServerLauncher
             InitializeMinecraftServer();
             loadJson();
             initItemData();
+            comboInit();
 
             string[] property = { "flat", "normal", "largebiomes", "amplified" };
             comboWorldProperty.Items.AddRange(property);
@@ -576,6 +595,26 @@ namespace MinecraftServerLauncher
             MinecraftServer.Command("time set night");
         }
 
+        private void btnWeatherClear_Click(object sender, EventArgs e)
+        {
+            weatherPlayer("clear");
+        }
+
+        private void btnWeatherRain_Click(object sender, EventArgs e)
+        {
+            weatherPlayer("rain");
+        }
+
+        private void btnWeatherThunder_Click(object sender, EventArgs e)
+        {
+            weatherPlayer("thunder");
+        }
+
+        /// <summary>
+        /// If it checks, time doesn't change.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void chkboxTimeFix_CheckedChanged(object sender, EventArgs e)
         {
             if (chkboxTimeFix.Checked == true)
@@ -589,45 +628,22 @@ namespace MinecraftServerLauncher
             }
         }
 
-        private void btnWeatherClear_Click(object sender, EventArgs e)
-        {
-            MinecraftServer.Command("weather clear");
-        }
-
-        private void btnWeatherRain_Click(object sender, EventArgs e)
-        {
-            MinecraftServer.Command("weather rain");
-        }
-
-        private void btnWeatherThunder_Click(object sender, EventArgs e)
-        {
-            MinecraftServer.Command("weather thunder");
-        }
-
+        /// <summary>
+        /// If it checks, weather doesn't change.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void chkboxWeatherFix_CheckedChanged(object sender, EventArgs e)
         {
-            if (chkboxTimeFix.Checked == true)
+            if (chkboxWeatherFix.Checked == true)
             {
                 MinecraftServer.Command("gamerule doWeatherCycle false");
             }
 
-            if (chkboxTimeFix.Checked == false)
+            if (chkboxWeatherFix.Checked == false)
             {
                 MinecraftServer.Command("gamerule doWeatherCycle true");
             }
-        }
-
-        private void txtComePlayerID_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                MinecraftServer.Command("come " + txtComePlayerID.Text);
-            }
-        }
-
-        private void btnBring_Click(object sender, EventArgs e)
-        {
-            MinecraftServer.Command("come " + txtComePlayerID.Text);
         }
 
         /// <summary>
@@ -703,24 +719,6 @@ namespace MinecraftServerLauncher
         }
 
         /// <summary>
-        /// If it checks, all players without operators can't move.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void chkFreeze_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkFreeze.Checked == true)
-            {
-                MinecraftServer.Command("freeze true");
-            }
-
-            if (chkFreeze.Checked == false)
-            {
-                MinecraftServer.Command("freeze false");
-            }
-        }
-
-        /// <summary>
         /// If if checks, prevent players changing terrain.
         /// </summary>
         /// <param name="sender"></param>
@@ -757,26 +755,6 @@ namespace MinecraftServerLauncher
         }
 
         /// <summary>
-        /// Op specific player.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnOp_Click(object sender, EventArgs e)
-        {
-            MinecraftServer.Command("op " + txtOperatorPlayer.Text);
-        }
-
-        /// <summary>
-        /// Deop specific player.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnDeop_Click(object sender, EventArgs e)
-        {
-            MinecraftServer.Command("deop " + txtOperatorPlayer.Text);
-        }
-
-        /// <summary>
         /// Set default class settings (Disabled)
         /// </summary>
         /// <param name="sender"></param>
@@ -809,13 +787,51 @@ namespace MinecraftServerLauncher
                     var numOfItem = numItem.Value;
 
                     //Console.WriteLine("give @a " + dataName + " "+ numOfItem + " " + dataValue);
-                    MinecraftServer.Command("give @a " + dataName + " "+ numOfItem + " " + dataValue);
+                    if(comboItemPlayer.SelectedIndex == 0)
+                    {
+                        MinecraftServer.Command("give @a " + dataName + " " + numOfItem + " " + dataValue);
+                    }
+                    else
+                    {
+                        MinecraftServer.Command("give "+ comboItemPlayer.Text + " " + dataName + " " + numOfItem + " " + dataValue);
+                    }
+                    
                 }
             }
             catch
             {
 
             }
+        }
+
+        /// <summary>
+        /// Freeze all players
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnFreezeAll_Click(object sender, EventArgs e)
+        {
+            MinecraftServer.Command("freeze @a");
+        }
+
+        /// <summary>
+        /// Unfreeze all players
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnUnfreezeAll_Click(object sender, EventArgs e)
+        {
+            MinecraftServer.Command("unfreeze @a");
+        }
+
+        /// <summary>
+        /// Set timer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnTimerStart_Click(object sender, EventArgs e)
+        {
+            MinecraftServer.Command("timer " + numTimerSec.Value);
         }
 
         /// <summary>
@@ -836,8 +852,6 @@ namespace MinecraftServerLauncher
         /// <param name="e"></param>
         private void btnCompress_Click(object sender, EventArgs e)
         {
-            string startPath = "";
-            string zipPath = "";
             string worldDirectory = "";
 
             if (txtWorldFolder.Text.ToLower() == "logs" ||
@@ -848,8 +862,7 @@ namespace MinecraftServerLauncher
                 txtConsole.Text += "오류: 해당 디렉토리는 맵 디렉토리가 아닙니다." + Environment.NewLine;
                 return;
             }
-
-            if (txtWorldFolder.Text != "")
+            else if (txtWorldFolder.Text != "")
             {
                 worldDirectory = txtWorldFolder.Text;
             }
@@ -857,25 +870,31 @@ namespace MinecraftServerLauncher
             {
                 worldDirectory = "world";
             }
-            startPath = FixPath(executablePath) + worldDirectory;
-            zipPath = FixPath(desktopPath) + worldDirectory + ".zip";
 
-            if (Directory.Exists(startPath))
+            string directoryPath = FixPath(executablePath) + worldDirectory; // sourceDir
+            string newPath = FixPath(desktopPath) + worldDirectory; // Temp destDir
+            string zipFileName = worldDirectory + ".zip"; // zipFile
+            string zipFilePath = FixPath(desktopPath) + zipFileName; // zipFilePath
+
+            if (Directory.Exists(directoryPath)) // Check sourceDir exist
             {
-                if (!File.Exists(zipPath))
+                if (File.Exists(zipFilePath)) // Check zipFile exist
                 {
-                    ZipFile.CreateFromDirectory(startPath, zipPath);
-                    txtConsole.Text += zipPath + Environment.NewLine;
-                    txtConsole.Text += worldDirectory + " 맵을 압축하였습니다." + Environment.NewLine;
+                    File.Delete(zipFilePath); // Delete previous zipFile to overwrite zipFile
                 }
-                else
+                if (Directory.Exists(newPath)) // Check destDir exist
                 {
-                    txtConsole.Text += "오류: 바탕화면에 이미 " + worldDirectory + ".zip 파일이 존재합니다. " + Environment.NewLine;
+                    Directory.Delete(newPath, true); // Delete previous destDir to overwrite destDir
                 }
+                Directory.CreateDirectory(newPath); // Create new destDir
+                DirectoryCopy(directoryPath, newPath, true); // Copy from source to destination
+                ZipFile.CreateFromDirectory(newPath, zipFilePath); // Make zipFile
+                Directory.Delete(newPath, true); // Delete destDir
+
+                txtConsole.Text += "바탕화면에 " + zipFileName + " 파일이 생성되었습니다." + Environment.NewLine;
             }
             else
             {
-                txtConsole.Text += startPath + Environment.NewLine;
                 txtConsole.Text += "오류: " + worldDirectory + " 디렉토리가 존재하지 않습니다." + Environment.NewLine;
             }
         }
@@ -883,7 +902,7 @@ namespace MinecraftServerLauncher
         #region Button: World Control
 
         /// <summary>
-        /// Create world
+        /// Create new world
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -898,6 +917,23 @@ namespace MinecraftServerLauncher
                 txtConsole.Text += "생성할 맵 이름을 입력해주세요." + Environment.NewLine;
             }
 
+        }
+
+        /// <summary>
+        /// When player is in other world (not "world" world), change world weather
+        /// </summary>
+        /// <param name="weather"></param>
+        private void weatherPlayer(string weather)
+        {
+            if (playerList.Items.Count > 0)
+            {
+                MinecraftServer.Command("weatherplayer " + weather + " " + playerList.Items[0]);
+            }
+            else
+            {
+                MinecraftServer.Command("weatherplayer " + weather);
+            }
+            
         }
 
         /// <summary>
@@ -928,15 +964,16 @@ namespace MinecraftServerLauncher
         /// </summary>
         public void enableButton()
         {
-            grpBringStudents.Enabled = true;
             grpDifficulty.Enabled = true;
             grpGamemode.Enabled = true;
             grpGiveItem.Enabled = true;
             grpOption.Enabled = true;
             grpTime.Enabled = true;
             grpWeather.Enabled = true;
-            grpOperator.Enabled = true;
             grpPlayers.Enabled = true;
+            grpWorldControl.Enabled = true;
+            grpFreeze.Enabled = true;
+            grpTimer.Enabled = true;
             btnDefault.Enabled = true;
             btnRefresh.Enabled = true;
         }
@@ -946,15 +983,16 @@ namespace MinecraftServerLauncher
         /// </summary>
         public void disableButton()
         {
-            grpBringStudents.Enabled = false;
             grpDifficulty.Enabled = false;
             grpGamemode.Enabled = false;
             grpGiveItem.Enabled = false;
             grpOption.Enabled = false;
             grpTime.Enabled = false;
             grpWeather.Enabled = false;
-            grpOperator.Enabled = false;
             grpPlayers.Enabled = false;
+            grpWorldControl.Enabled = false;
+            grpFreeze.Enabled = false;
+            grpTimer.Enabled = false;
             btnDefault.Enabled = false;
             btnRefresh.Enabled = false;
         }
@@ -1003,6 +1041,9 @@ namespace MinecraftServerLauncher
 
         #region ===== Constructor =====
 
+        /// <summary>
+        /// MainForm Constructor
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
@@ -1134,6 +1175,99 @@ namespace MinecraftServerLauncher
 
 
         #endregion
+
+        #region Method: DirectoryCopy
+
+        private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
+        {
+            // Get the subdirectories for the specified directory.
+            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+
+            if (!dir.Exists)
+            {
+                throw new DirectoryNotFoundException(
+                    "Source directory does not exist or could not be found: "
+                    + sourceDirName);
+            }
+
+            DirectoryInfo[] dirs = dir.GetDirectories();
+            // If the destination directory doesn't exist, create it.
+            if (!Directory.Exists(destDirName))
+            {
+                Directory.CreateDirectory(destDirName);
+            }
+
+            // Get the files in the directory and copy them to the new location.
+            FileInfo[] files = dir.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                string temppath = Path.Combine(destDirName, file.Name);
+                file.CopyTo(temppath, false);
+            }
+
+            // If copying subdirectories, copy them and their contents to new location.
+            if (copySubDirs)
+            {
+                foreach (DirectoryInfo subdir in dirs)
+                {
+                    string temppath = Path.Combine(destDirName, subdir.Name);
+                    DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+                }
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+        #region ===== ContextMenu Control =====
+
+        /// <summary>
+        /// When clicking right mouse button, select item and pop-up context menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void playerList_MouseUp(object sender, MouseEventArgs e)
+        {
+            int location = playerList.IndexFromPoint(e.Location);
+            if (e.Button == MouseButtons.Right)
+            {
+                if (location != -1)
+                {
+                    playerList.SelectedIndex = location;                //Index selected
+                    contextMenuPlayerList.Show(playerList.PointToScreen(e.Location));   //Show Menu
+                }
+            }
+        }
+
+        /// <summary>
+        /// PlayerList ContextMenu right-click event function
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void contextMenuPlayerList_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if (e.ClickedItem.ToString().ToLower() == "op")
+            {
+                MinecraftServer.Command("op " + playerList.SelectedItem.ToString());
+            }
+            else if (e.ClickedItem.ToString().ToLower() == "de-op")
+            {
+                MinecraftServer.Command("deop " + playerList.SelectedItem.ToString());
+            }
+            else if (e.ClickedItem.ToString().ToLower() == "freeze")
+            {
+                MinecraftServer.Command("freeze " + playerList.SelectedItem.ToString());
+            }
+            else if (e.ClickedItem.ToString().ToLower() == "unfreeze")
+            {
+                MinecraftServer.Command("unfreeze " + playerList.SelectedItem.ToString());
+            }
+            else if (e.ClickedItem.ToString().ToLower() == "teleport all")
+            {
+                MinecraftServer.Command("come " + playerList.SelectedItem.ToString());
+            }
+        }
 
         #endregion
     }

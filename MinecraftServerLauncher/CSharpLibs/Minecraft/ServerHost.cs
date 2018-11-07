@@ -620,7 +620,7 @@ namespace CSharpLibs.Minecraft
 
             // Clean up the server.properties after run has completed
             UpdateServerProperties(false);
-
+            mvarOnlinePlayers.Clear();
             OnServerStopped();
         }
 

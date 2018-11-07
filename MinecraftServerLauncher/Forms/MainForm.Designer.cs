@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblPathInfo = new System.Windows.Forms.Label();
             this.txtMinecraftServerPath = new System.Windows.Forms.TextBox();
             this.btnOpen = new System.Windows.Forms.Button();
@@ -63,11 +64,8 @@
             this.btnWeatherThunder = new System.Windows.Forms.Button();
             this.btnWeatherRain = new System.Windows.Forms.Button();
             this.btnWeatherClear = new System.Windows.Forms.Button();
-            this.grpBringStudents = new System.Windows.Forms.GroupBox();
-            this.lblComePlayerID = new System.Windows.Forms.Label();
-            this.btnBring = new System.Windows.Forms.Button();
-            this.txtComePlayerID = new System.Windows.Forms.TextBox();
             this.grpGiveItem = new System.Windows.Forms.GroupBox();
+            this.comboItemPlayer = new System.Windows.Forms.ComboBox();
             this.numItem = new System.Windows.Forms.NumericUpDown();
             this.comboItemName = new System.Windows.Forms.ComboBox();
             this.btnGive = new System.Windows.Forms.Button();
@@ -76,18 +74,14 @@
             this.grpOption = new System.Windows.Forms.GroupBox();
             this.chkCommandPaused = new System.Windows.Forms.CheckBox();
             this.chkPreventExplode = new System.Windows.Forms.CheckBox();
-            this.chkFreeze = new System.Windows.Forms.CheckBox();
             this.chkWorldEdit = new System.Windows.Forms.CheckBox();
             this.chkPlayerInvincible = new System.Windows.Forms.CheckBox();
             this.chkPreventPK = new System.Windows.Forms.CheckBox();
             this.chkChatPaused = new System.Windows.Forms.CheckBox();
-            this.grpOperator = new System.Windows.Forms.GroupBox();
-            this.btnDeop = new System.Windows.Forms.Button();
-            this.btnOp = new System.Windows.Forms.Button();
-            this.txtOperatorPlayer = new System.Windows.Forms.TextBox();
-            this.lblOperatorPlayer = new System.Windows.Forms.Label();
             this.playerList = new System.Windows.Forms.ListBox();
             this.grpPlayers = new System.Windows.Forms.GroupBox();
+            this.btnUnfreezeAll = new System.Windows.Forms.Button();
+            this.btnFreezeAll = new System.Windows.Forms.Button();
             this.btnWebStart = new System.Windows.Forms.Button();
             this.btnWebStop = new System.Windows.Forms.Button();
             this.grpWebServer = new System.Windows.Forms.GroupBox();
@@ -98,21 +92,34 @@
             this.btnWorldCreate = new System.Windows.Forms.Button();
             this.comboWorldProperty = new System.Windows.Forms.ComboBox();
             this.txtWorldName = new System.Windows.Forms.TextBox();
+            this.contextMenuPlayerList = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.opToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.freezeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.unfreezeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bringToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.grpFreeze = new System.Windows.Forms.GroupBox();
+            this.grpTimer = new System.Windows.Forms.GroupBox();
+            this.numTimerSec = new System.Windows.Forms.NumericUpDown();
+            this.lblTimer = new System.Windows.Forms.Label();
+            this.btnTimerStart = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.grpServerControl.SuspendLayout();
             this.grpGamemode.SuspendLayout();
             this.grpDifficulty.SuspendLayout();
             this.grpTime.SuspendLayout();
             this.grpWeather.SuspendLayout();
-            this.grpBringStudents.SuspendLayout();
             this.grpGiveItem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numItem)).BeginInit();
             this.grpDisable.SuspendLayout();
             this.grpOption.SuspendLayout();
-            this.grpOperator.SuspendLayout();
             this.grpPlayers.SuspendLayout();
             this.grpWebServer.SuspendLayout();
             this.grpWorldControl.SuspendLayout();
+            this.contextMenuPlayerList.SuspendLayout();
+            this.grpFreeze.SuspendLayout();
+            this.grpTimer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numTimerSec)).BeginInit();
             this.SuspendLayout();
             // 
             // lblPathInfo
@@ -274,9 +281,9 @@
             // 
             // txtCommand
             // 
-            this.txtCommand.Location = new System.Drawing.Point(348, 472);
+            this.txtCommand.Location = new System.Drawing.Point(348, 469);
             this.txtCommand.Name = "txtCommand";
-            this.txtCommand.Size = new System.Drawing.Size(516, 21);
+            this.txtCommand.Size = new System.Drawing.Size(504, 21);
             this.txtCommand.TabIndex = 10;
             this.txtCommand.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCommand_KeyDown);
             // 
@@ -289,7 +296,7 @@
             this.txtConsole.Name = "txtConsole";
             this.txtConsole.ReadOnly = true;
             this.txtConsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtConsole.Size = new System.Drawing.Size(516, 218);
+            this.txtConsole.Size = new System.Drawing.Size(504, 218);
             this.txtConsole.TabIndex = 12;
             this.txtConsole.TextChanged += new System.EventHandler(this.txtConsole_TextChanged);
             // 
@@ -404,7 +411,7 @@
             this.grpTime.Controls.Add(this.chkboxTimeFix);
             this.grpTime.Controls.Add(this.btnTime_night);
             this.grpTime.Controls.Add(this.btnTime_day);
-            this.grpTime.Location = new System.Drawing.Point(12, 189);
+            this.grpTime.Location = new System.Drawing.Point(12, 248);
             this.grpTime.Name = "grpTime";
             this.grpTime.Size = new System.Drawing.Size(330, 53);
             this.grpTime.TabIndex = 19;
@@ -451,7 +458,7 @@
             this.grpWeather.Controls.Add(this.btnWeatherThunder);
             this.grpWeather.Controls.Add(this.btnWeatherRain);
             this.grpWeather.Controls.Add(this.btnWeatherClear);
-            this.grpWeather.Location = new System.Drawing.Point(348, 71);
+            this.grpWeather.Location = new System.Drawing.Point(12, 189);
             this.grpWeather.Name = "grpWeather";
             this.grpWeather.Size = new System.Drawing.Size(330, 53);
             this.grpWeather.TabIndex = 20;
@@ -502,57 +509,28 @@
             this.btnWeatherClear.UseVisualStyleBackColor = true;
             this.btnWeatherClear.Click += new System.EventHandler(this.btnWeatherClear_Click);
             // 
-            // grpBringStudents
-            // 
-            this.grpBringStudents.Controls.Add(this.lblComePlayerID);
-            this.grpBringStudents.Controls.Add(this.btnBring);
-            this.grpBringStudents.Controls.Add(this.txtComePlayerID);
-            this.grpBringStudents.Location = new System.Drawing.Point(348, 130);
-            this.grpBringStudents.Name = "grpBringStudents";
-            this.grpBringStudents.Size = new System.Drawing.Size(330, 53);
-            this.grpBringStudents.TabIndex = 21;
-            this.grpBringStudents.TabStop = false;
-            this.grpBringStudents.Text = "Bring students";
-            // 
-            // lblComePlayerID
-            // 
-            this.lblComePlayerID.Location = new System.Drawing.Point(6, 20);
-            this.lblComePlayerID.Name = "lblComePlayerID";
-            this.lblComePlayerID.Size = new System.Drawing.Size(75, 23);
-            this.lblComePlayerID.TabIndex = 22;
-            this.lblComePlayerID.Text = "Player";
-            this.lblComePlayerID.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnBring
-            // 
-            this.btnBring.Location = new System.Drawing.Point(249, 20);
-            this.btnBring.Name = "btnBring";
-            this.btnBring.Size = new System.Drawing.Size(75, 23);
-            this.btnBring.TabIndex = 23;
-            this.btnBring.Text = "OK";
-            this.btnBring.UseVisualStyleBackColor = true;
-            this.btnBring.Click += new System.EventHandler(this.btnBring_Click);
-            // 
-            // txtComePlayerID
-            // 
-            this.txtComePlayerID.Location = new System.Drawing.Point(87, 21);
-            this.txtComePlayerID.Name = "txtComePlayerID";
-            this.txtComePlayerID.Size = new System.Drawing.Size(156, 21);
-            this.txtComePlayerID.TabIndex = 22;
-            this.txtComePlayerID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtComePlayerID_KeyDown);
-            // 
             // grpGiveItem
             // 
+            this.grpGiveItem.Controls.Add(this.comboItemPlayer);
             this.grpGiveItem.Controls.Add(this.numItem);
             this.grpGiveItem.Controls.Add(this.comboItemName);
             this.grpGiveItem.Controls.Add(this.btnGive);
             this.grpGiveItem.Controls.Add(this.comboItemCategory);
-            this.grpGiveItem.Location = new System.Drawing.Point(12, 248);
+            this.grpGiveItem.Location = new System.Drawing.Point(12, 307);
             this.grpGiveItem.Name = "grpGiveItem";
             this.grpGiveItem.Size = new System.Drawing.Size(330, 72);
             this.grpGiveItem.TabIndex = 22;
             this.grpGiveItem.TabStop = false;
             this.grpGiveItem.Text = "Give item";
+            // 
+            // comboItemPlayer
+            // 
+            this.comboItemPlayer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboItemPlayer.FormattingEnabled = true;
+            this.comboItemPlayer.Location = new System.Drawing.Point(168, 20);
+            this.comboItemPlayer.Name = "comboItemPlayer";
+            this.comboItemPlayer.Size = new System.Drawing.Size(156, 20);
+            this.comboItemPlayer.TabIndex = 31;
             // 
             // numItem
             // 
@@ -601,7 +579,7 @@
             this.comboItemCategory.FormattingEnabled = true;
             this.comboItemCategory.Location = new System.Drawing.Point(6, 20);
             this.comboItemCategory.Name = "comboItemCategory";
-            this.comboItemCategory.Size = new System.Drawing.Size(318, 20);
+            this.comboItemCategory.Size = new System.Drawing.Size(156, 20);
             this.comboItemCategory.TabIndex = 24;
             this.comboItemCategory.SelectedIndexChanged += new System.EventHandler(this.comboItemCategory_SelectedIndexChanged);
             // 
@@ -628,7 +606,6 @@
             // 
             this.grpOption.Controls.Add(this.chkCommandPaused);
             this.grpOption.Controls.Add(this.chkPreventExplode);
-            this.grpOption.Controls.Add(this.chkFreeze);
             this.grpOption.Controls.Add(this.chkWorldEdit);
             this.grpOption.Controls.Add(this.chkPlayerInvincible);
             this.grpOption.Controls.Add(this.chkPreventPK);
@@ -664,21 +641,10 @@
             this.chkPreventExplode.UseVisualStyleBackColor = true;
             this.chkPreventExplode.CheckedChanged += new System.EventHandler(this.chkPreventExplode_CheckedChanged);
             // 
-            // chkFreeze
-            // 
-            this.chkFreeze.AutoSize = true;
-            this.chkFreeze.Location = new System.Drawing.Point(6, 64);
-            this.chkFreeze.Name = "chkFreeze";
-            this.chkFreeze.Size = new System.Drawing.Size(128, 16);
-            this.chkFreeze.TabIndex = 25;
-            this.chkFreeze.Text = "플레이어 이동 제한";
-            this.chkFreeze.UseVisualStyleBackColor = true;
-            this.chkFreeze.CheckedChanged += new System.EventHandler(this.chkFreeze_CheckedChanged);
-            // 
             // chkWorldEdit
             // 
             this.chkWorldEdit.AutoSize = true;
-            this.chkWorldEdit.Location = new System.Drawing.Point(168, 64);
+            this.chkWorldEdit.Location = new System.Drawing.Point(6, 64);
             this.chkWorldEdit.Name = "chkWorldEdit";
             this.chkWorldEdit.Size = new System.Drawing.Size(104, 16);
             this.chkWorldEdit.TabIndex = 25;
@@ -721,55 +687,6 @@
             this.chkChatPaused.UseVisualStyleBackColor = true;
             this.chkChatPaused.CheckedChanged += new System.EventHandler(this.chkChatPaused_CheckedChanged);
             // 
-            // grpOperator
-            // 
-            this.grpOperator.Controls.Add(this.btnDeop);
-            this.grpOperator.Controls.Add(this.btnOp);
-            this.grpOperator.Controls.Add(this.txtOperatorPlayer);
-            this.grpOperator.Controls.Add(this.lblOperatorPlayer);
-            this.grpOperator.Location = new System.Drawing.Point(12, 326);
-            this.grpOperator.Name = "grpOperator";
-            this.grpOperator.Size = new System.Drawing.Size(330, 53);
-            this.grpOperator.TabIndex = 25;
-            this.grpOperator.TabStop = false;
-            this.grpOperator.Text = "Operator";
-            // 
-            // btnDeop
-            // 
-            this.btnDeop.Location = new System.Drawing.Point(249, 20);
-            this.btnDeop.Name = "btnDeop";
-            this.btnDeop.Size = new System.Drawing.Size(75, 23);
-            this.btnDeop.TabIndex = 25;
-            this.btnDeop.Text = "deop";
-            this.btnDeop.UseVisualStyleBackColor = true;
-            this.btnDeop.Click += new System.EventHandler(this.btnDeop_Click);
-            // 
-            // btnOp
-            // 
-            this.btnOp.Location = new System.Drawing.Point(168, 20);
-            this.btnOp.Name = "btnOp";
-            this.btnOp.Size = new System.Drawing.Size(75, 23);
-            this.btnOp.TabIndex = 24;
-            this.btnOp.Text = "op";
-            this.btnOp.UseVisualStyleBackColor = true;
-            this.btnOp.Click += new System.EventHandler(this.btnOp_Click);
-            // 
-            // txtOperatorPlayer
-            // 
-            this.txtOperatorPlayer.Location = new System.Drawing.Point(87, 21);
-            this.txtOperatorPlayer.Name = "txtOperatorPlayer";
-            this.txtOperatorPlayer.Size = new System.Drawing.Size(75, 21);
-            this.txtOperatorPlayer.TabIndex = 24;
-            // 
-            // lblOperatorPlayer
-            // 
-            this.lblOperatorPlayer.Location = new System.Drawing.Point(6, 20);
-            this.lblOperatorPlayer.Name = "lblOperatorPlayer";
-            this.lblOperatorPlayer.Size = new System.Drawing.Size(75, 23);
-            this.lblOperatorPlayer.TabIndex = 24;
-            this.lblOperatorPlayer.Text = "Player";
-            this.lblOperatorPlayer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // playerList
             // 
             this.playerList.FormattingEnabled = true;
@@ -777,18 +694,39 @@
             this.playerList.ItemHeight = 12;
             this.playerList.Location = new System.Drawing.Point(6, 20);
             this.playerList.Name = "playerList";
-            this.playerList.Size = new System.Drawing.Size(168, 199);
+            this.playerList.Size = new System.Drawing.Size(156, 200);
             this.playerList.TabIndex = 19;
+            this.playerList.MouseUp += new System.Windows.Forms.MouseEventHandler(this.playerList_MouseUp);
             // 
             // grpPlayers
             // 
             this.grpPlayers.Controls.Add(this.playerList);
             this.grpPlayers.Location = new System.Drawing.Point(684, 12);
             this.grpPlayers.Name = "grpPlayers";
-            this.grpPlayers.Size = new System.Drawing.Size(180, 230);
+            this.grpPlayers.Size = new System.Drawing.Size(168, 230);
             this.grpPlayers.TabIndex = 26;
             this.grpPlayers.TabStop = false;
             this.grpPlayers.Text = "Players";
+            // 
+            // btnUnfreezeAll
+            // 
+            this.btnUnfreezeAll.Location = new System.Drawing.Point(87, 20);
+            this.btnUnfreezeAll.Name = "btnUnfreezeAll";
+            this.btnUnfreezeAll.Size = new System.Drawing.Size(75, 23);
+            this.btnUnfreezeAll.TabIndex = 31;
+            this.btnUnfreezeAll.Text = "Unfreeze";
+            this.btnUnfreezeAll.UseVisualStyleBackColor = true;
+            this.btnUnfreezeAll.Click += new System.EventHandler(this.btnUnfreezeAll_Click);
+            // 
+            // btnFreezeAll
+            // 
+            this.btnFreezeAll.Location = new System.Drawing.Point(6, 20);
+            this.btnFreezeAll.Name = "btnFreezeAll";
+            this.btnFreezeAll.Size = new System.Drawing.Size(75, 23);
+            this.btnFreezeAll.TabIndex = 31;
+            this.btnFreezeAll.Text = "Freeze";
+            this.btnFreezeAll.UseVisualStyleBackColor = true;
+            this.btnFreezeAll.Click += new System.EventHandler(this.btnFreezeAll_Click);
             // 
             // btnWebStart
             // 
@@ -798,6 +736,7 @@
             this.btnWebStart.TabIndex = 27;
             this.btnWebStart.Text = "웹서버시작";
             this.btnWebStart.UseVisualStyleBackColor = true;
+            this.btnWebStart.Visible = false;
             this.btnWebStart.Click += new System.EventHandler(this.btnWebStart_Click);
             // 
             // btnWebStop
@@ -808,6 +747,7 @@
             this.btnWebStop.TabIndex = 28;
             this.btnWebStop.Text = "웹서버정지";
             this.btnWebStop.UseVisualStyleBackColor = true;
+            this.btnWebStop.Visible = false;
             this.btnWebStop.Click += new System.EventHandler(this.btnWebStop_Click);
             // 
             // grpWebServer
@@ -846,7 +786,7 @@
             this.grpWorldControl.Controls.Add(this.btnWorldCreate);
             this.grpWorldControl.Controls.Add(this.comboWorldProperty);
             this.grpWorldControl.Controls.Add(this.txtWorldName);
-            this.grpWorldControl.Location = new System.Drawing.Point(348, 189);
+            this.grpWorldControl.Location = new System.Drawing.Point(348, 71);
             this.grpWorldControl.Name = "grpWorldControl";
             this.grpWorldControl.Size = new System.Drawing.Size(330, 53);
             this.grpWorldControl.TabIndex = 30;
@@ -889,19 +829,130 @@
             this.txtWorldName.Size = new System.Drawing.Size(75, 21);
             this.txtWorldName.TabIndex = 22;
             // 
+            // contextMenuPlayerList
+            // 
+            this.contextMenuPlayerList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.opToolStripMenuItem,
+            this.deopToolStripMenuItem,
+            this.freezeToolStripMenuItem,
+            this.unfreezeToolStripMenuItem,
+            this.bringToToolStripMenuItem});
+            this.contextMenuPlayerList.Name = "contextMenuPlayerList";
+            this.contextMenuPlayerList.Size = new System.Drawing.Size(134, 114);
+            this.contextMenuPlayerList.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuPlayerList_ItemClicked);
+            // 
+            // opToolStripMenuItem
+            // 
+            this.opToolStripMenuItem.Name = "opToolStripMenuItem";
+            this.opToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.opToolStripMenuItem.Text = "Op";
+            // 
+            // deopToolStripMenuItem
+            // 
+            this.deopToolStripMenuItem.Name = "deopToolStripMenuItem";
+            this.deopToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.deopToolStripMenuItem.Text = "De-op";
+            // 
+            // freezeToolStripMenuItem
+            // 
+            this.freezeToolStripMenuItem.Name = "freezeToolStripMenuItem";
+            this.freezeToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.freezeToolStripMenuItem.Text = "Freeze";
+            // 
+            // unfreezeToolStripMenuItem
+            // 
+            this.unfreezeToolStripMenuItem.Name = "unfreezeToolStripMenuItem";
+            this.unfreezeToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.unfreezeToolStripMenuItem.Text = "Unfreeze";
+            // 
+            // bringToToolStripMenuItem
+            // 
+            this.bringToToolStripMenuItem.Name = "bringToToolStripMenuItem";
+            this.bringToToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.bringToToolStripMenuItem.Text = "Teleport all";
+            // 
+            // grpFreeze
+            // 
+            this.grpFreeze.Controls.Add(this.btnUnfreezeAll);
+            this.grpFreeze.Controls.Add(this.btnFreezeAll);
+            this.grpFreeze.Location = new System.Drawing.Point(348, 130);
+            this.grpFreeze.Name = "grpFreeze";
+            this.grpFreeze.Size = new System.Drawing.Size(330, 53);
+            this.grpFreeze.TabIndex = 31;
+            this.grpFreeze.TabStop = false;
+            this.grpFreeze.Text = "Freeze";
+            // 
+            // grpTimer
+            // 
+            this.grpTimer.Controls.Add(this.btnTimerStart);
+            this.grpTimer.Controls.Add(this.lblTimer);
+            this.grpTimer.Controls.Add(this.numTimerSec);
+            this.grpTimer.Location = new System.Drawing.Point(348, 189);
+            this.grpTimer.Name = "grpTimer";
+            this.grpTimer.Size = new System.Drawing.Size(330, 53);
+            this.grpTimer.TabIndex = 32;
+            this.grpTimer.TabStop = false;
+            this.grpTimer.Text = "Timer";
+            // 
+            // numTimerSec
+            // 
+            this.numTimerSec.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numTimerSec.Location = new System.Drawing.Point(87, 21);
+            this.numTimerSec.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.numTimerSec.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numTimerSec.Name = "numTimerSec";
+            this.numTimerSec.Size = new System.Drawing.Size(156, 21);
+            this.numTimerSec.TabIndex = 32;
+            this.numTimerSec.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // lblTimer
+            // 
+            this.lblTimer.AutoSize = true;
+            this.lblTimer.Location = new System.Drawing.Point(29, 25);
+            this.lblTimer.Name = "lblTimer";
+            this.lblTimer.Size = new System.Drawing.Size(29, 12);
+            this.lblTimer.TabIndex = 33;
+            this.lblTimer.Text = "시간";
+            // 
+            // btnTimerStart
+            // 
+            this.btnTimerStart.Location = new System.Drawing.Point(249, 20);
+            this.btnTimerStart.Name = "btnTimerStart";
+            this.btnTimerStart.Size = new System.Drawing.Size(75, 23);
+            this.btnTimerStart.TabIndex = 33;
+            this.btnTimerStart.Text = "Start";
+            this.btnTimerStart.UseVisualStyleBackColor = true;
+            this.btnTimerStart.Click += new System.EventHandler(this.btnTimerStart_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(873, 502);
+            this.ClientSize = new System.Drawing.Size(864, 502);
+            this.Controls.Add(this.grpTimer);
+            this.Controls.Add(this.grpFreeze);
             this.Controls.Add(this.grpWorldControl);
             this.Controls.Add(this.grpWebServer);
             this.Controls.Add(this.grpPlayers);
-            this.Controls.Add(this.grpOption);
-            this.Controls.Add(this.grpOperator);
-            this.Controls.Add(this.grpDisable);
             this.Controls.Add(this.grpGiveItem);
-            this.Controls.Add(this.grpBringStudents);
+            this.Controls.Add(this.grpOption);
+            this.Controls.Add(this.grpDisable);
             this.Controls.Add(this.grpWeather);
             this.Controls.Add(this.grpTime);
             this.Controls.Add(this.grpDifficulty);
@@ -924,21 +975,22 @@
             this.grpDifficulty.ResumeLayout(false);
             this.grpTime.ResumeLayout(false);
             this.grpWeather.ResumeLayout(false);
-            this.grpBringStudents.ResumeLayout(false);
-            this.grpBringStudents.PerformLayout();
             this.grpGiveItem.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numItem)).EndInit();
             this.grpDisable.ResumeLayout(false);
             this.grpDisable.PerformLayout();
             this.grpOption.ResumeLayout(false);
             this.grpOption.PerformLayout();
-            this.grpOperator.ResumeLayout(false);
-            this.grpOperator.PerformLayout();
             this.grpPlayers.ResumeLayout(false);
             this.grpWebServer.ResumeLayout(false);
             this.grpWebServer.PerformLayout();
             this.grpWorldControl.ResumeLayout(false);
             this.grpWorldControl.PerformLayout();
+            this.contextMenuPlayerList.ResumeLayout(false);
+            this.grpFreeze.ResumeLayout(false);
+            this.grpTimer.ResumeLayout(false);
+            this.grpTimer.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numTimerSec)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -979,10 +1031,6 @@
         private System.Windows.Forms.Button btnWeatherThunder;
         private System.Windows.Forms.Button btnWeatherRain;
         private System.Windows.Forms.Button btnWeatherClear;
-        private System.Windows.Forms.GroupBox grpBringStudents;
-        private System.Windows.Forms.TextBox txtComePlayerID;
-        private System.Windows.Forms.Button btnBring;
-        private System.Windows.Forms.Label lblComePlayerID;
         private System.Windows.Forms.GroupBox grpGiveItem;
         private System.Windows.Forms.GroupBox grpDisable;
         private System.Windows.Forms.Button btnGive;
@@ -991,17 +1039,11 @@
         private System.Windows.Forms.GroupBox grpOption;
         private System.Windows.Forms.CheckBox chkCommandPaused;
         private System.Windows.Forms.CheckBox chkPreventExplode;
-        private System.Windows.Forms.CheckBox chkFreeze;
         private System.Windows.Forms.CheckBox chkWorldEdit;
         private System.Windows.Forms.CheckBox chkPlayerInvincible;
         private System.Windows.Forms.CheckBox chkPreventPK;
         private System.Windows.Forms.CheckBox chkChatPaused;
         private System.Windows.Forms.Button btnDefault;
-        private System.Windows.Forms.GroupBox grpOperator;
-        private System.Windows.Forms.Button btnDeop;
-        private System.Windows.Forms.Button btnOp;
-        private System.Windows.Forms.TextBox txtOperatorPlayer;
-        private System.Windows.Forms.Label lblOperatorPlayer;
         private System.Windows.Forms.NumericUpDown numItem;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.GroupBox grpPlayers;
@@ -1016,6 +1058,20 @@
         private System.Windows.Forms.Button btnWorldCreate;
         private System.Windows.Forms.ComboBox comboWorldProperty;
         private System.Windows.Forms.TextBox txtWorldName;
+        private System.Windows.Forms.ComboBox comboItemPlayer;
+        private System.Windows.Forms.ContextMenuStrip contextMenuPlayerList;
+        private System.Windows.Forms.ToolStripMenuItem opToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem freezeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem unfreezeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bringToToolStripMenuItem;
+        private System.Windows.Forms.Button btnUnfreezeAll;
+        private System.Windows.Forms.Button btnFreezeAll;
+        private System.Windows.Forms.GroupBox grpFreeze;
+        private System.Windows.Forms.GroupBox grpTimer;
+        private System.Windows.Forms.Button btnTimerStart;
+        private System.Windows.Forms.Label lblTimer;
+        private System.Windows.Forms.NumericUpDown numTimerSec;
     }
 }
 
