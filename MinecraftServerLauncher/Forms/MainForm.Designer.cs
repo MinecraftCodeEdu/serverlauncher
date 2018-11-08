@@ -84,8 +84,7 @@
             this.btnFreezeAll = new System.Windows.Forms.Button();
             this.btnWebStart = new System.Windows.Forms.Button();
             this.btnWebStop = new System.Windows.Forms.Button();
-            this.grpWebServer = new System.Windows.Forms.GroupBox();
-            this.txtWorldFolder = new System.Windows.Forms.TextBox();
+            this.grpWorldList = new System.Windows.Forms.GroupBox();
             this.btnCompress = new System.Windows.Forms.Button();
             this.grpWorldControl = new System.Windows.Forms.GroupBox();
             this.btnWorldMove = new System.Windows.Forms.Button();
@@ -100,9 +99,10 @@
             this.bringToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grpFreeze = new System.Windows.Forms.GroupBox();
             this.grpTimer = new System.Windows.Forms.GroupBox();
-            this.numTimerSec = new System.Windows.Forms.NumericUpDown();
-            this.lblTimer = new System.Windows.Forms.Label();
             this.btnTimerStart = new System.Windows.Forms.Button();
+            this.lblTimer = new System.Windows.Forms.Label();
+            this.numTimerSec = new System.Windows.Forms.NumericUpDown();
+            this.comboWorldList = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.grpServerControl.SuspendLayout();
             this.grpGamemode.SuspendLayout();
@@ -114,7 +114,7 @@
             this.grpDisable.SuspendLayout();
             this.grpOption.SuspendLayout();
             this.grpPlayers.SuspendLayout();
-            this.grpWebServer.SuspendLayout();
+            this.grpWorldList.SuspendLayout();
             this.grpWorldControl.SuspendLayout();
             this.contextMenuPlayerList.SuspendLayout();
             this.grpFreeze.SuspendLayout();
@@ -565,7 +565,7 @@
             // 
             // btnGive
             // 
-            this.btnGive.Location = new System.Drawing.Point(249, 45);
+            this.btnGive.Location = new System.Drawing.Point(249, 44);
             this.btnGive.Name = "btnGive";
             this.btnGive.Size = new System.Drawing.Size(75, 23);
             this.btnGive.TabIndex = 24;
@@ -588,6 +588,8 @@
             this.grpDisable.Controls.Add(this.btnDefault);
             this.grpDisable.Controls.Add(this.lblPathInfo);
             this.grpDisable.Controls.Add(this.txtMinecraftServerPath);
+            this.grpDisable.Controls.Add(this.btnWebStop);
+            this.grpDisable.Controls.Add(this.btnWebStart);
             this.grpDisable.Controls.Add(this.btnOpen);
             this.grpDisable.Controls.Add(this.lblMemoryInfo);
             this.grpDisable.Controls.Add(this.numericUpDown1);
@@ -730,7 +732,7 @@
             // 
             // btnWebStart
             // 
-            this.btnWebStart.Location = new System.Drawing.Point(6, 20);
+            this.btnWebStart.Location = new System.Drawing.Point(330, 59);
             this.btnWebStart.Name = "btnWebStart";
             this.btnWebStart.Size = new System.Drawing.Size(75, 23);
             this.btnWebStart.TabIndex = 27;
@@ -741,7 +743,7 @@
             // 
             // btnWebStop
             // 
-            this.btnWebStop.Location = new System.Drawing.Point(87, 20);
+            this.btnWebStop.Location = new System.Drawing.Point(330, 77);
             this.btnWebStop.Name = "btnWebStop";
             this.btnWebStop.Size = new System.Drawing.Size(75, 23);
             this.btnWebStop.TabIndex = 28;
@@ -750,25 +752,16 @@
             this.btnWebStop.Visible = false;
             this.btnWebStop.Click += new System.EventHandler(this.btnWebStop_Click);
             // 
-            // grpWebServer
+            // grpWorldList
             // 
-            this.grpWebServer.Controls.Add(this.txtWorldFolder);
-            this.grpWebServer.Controls.Add(this.btnCompress);
-            this.grpWebServer.Controls.Add(this.btnWebStart);
-            this.grpWebServer.Controls.Add(this.btnWebStop);
-            this.grpWebServer.Location = new System.Drawing.Point(348, 12);
-            this.grpWebServer.Name = "grpWebServer";
-            this.grpWebServer.Size = new System.Drawing.Size(330, 53);
-            this.grpWebServer.TabIndex = 29;
-            this.grpWebServer.TabStop = false;
-            this.grpWebServer.Text = "WebServer";
-            // 
-            // txtWorldFolder
-            // 
-            this.txtWorldFolder.Location = new System.Drawing.Point(168, 20);
-            this.txtWorldFolder.Name = "txtWorldFolder";
-            this.txtWorldFolder.Size = new System.Drawing.Size(75, 21);
-            this.txtWorldFolder.TabIndex = 30;
+            this.grpWorldList.Controls.Add(this.comboWorldList);
+            this.grpWorldList.Controls.Add(this.btnCompress);
+            this.grpWorldList.Location = new System.Drawing.Point(348, 12);
+            this.grpWorldList.Name = "grpWorldList";
+            this.grpWorldList.Size = new System.Drawing.Size(330, 53);
+            this.grpWorldList.TabIndex = 29;
+            this.grpWorldList.TabStop = false;
+            this.grpWorldList.Text = "World List";
             // 
             // btnCompress
             // 
@@ -776,7 +769,7 @@
             this.btnCompress.Name = "btnCompress";
             this.btnCompress.Size = new System.Drawing.Size(75, 23);
             this.btnCompress.TabIndex = 30;
-            this.btnCompress.Text = "압축";
+            this.btnCompress.Text = "zip";
             this.btnCompress.UseVisualStyleBackColor = true;
             this.btnCompress.Click += new System.EventHandler(this.btnCompress_Click);
             // 
@@ -894,6 +887,25 @@
             this.grpTimer.TabStop = false;
             this.grpTimer.Text = "Timer";
             // 
+            // btnTimerStart
+            // 
+            this.btnTimerStart.Location = new System.Drawing.Point(249, 20);
+            this.btnTimerStart.Name = "btnTimerStart";
+            this.btnTimerStart.Size = new System.Drawing.Size(75, 23);
+            this.btnTimerStart.TabIndex = 33;
+            this.btnTimerStart.Text = "Start";
+            this.btnTimerStart.UseVisualStyleBackColor = true;
+            this.btnTimerStart.Click += new System.EventHandler(this.btnTimerStart_Click);
+            // 
+            // lblTimer
+            // 
+            this.lblTimer.AutoSize = true;
+            this.lblTimer.Location = new System.Drawing.Point(29, 25);
+            this.lblTimer.Name = "lblTimer";
+            this.lblTimer.Size = new System.Drawing.Size(29, 12);
+            this.lblTimer.TabIndex = 33;
+            this.lblTimer.Text = "시간";
+            // 
             // numTimerSec
             // 
             this.numTimerSec.Increment = new decimal(new int[] {
@@ -921,24 +933,15 @@
             0,
             0});
             // 
-            // lblTimer
+            // comboWorldList
             // 
-            this.lblTimer.AutoSize = true;
-            this.lblTimer.Location = new System.Drawing.Point(29, 25);
-            this.lblTimer.Name = "lblTimer";
-            this.lblTimer.Size = new System.Drawing.Size(29, 12);
-            this.lblTimer.TabIndex = 33;
-            this.lblTimer.Text = "시간";
-            // 
-            // btnTimerStart
-            // 
-            this.btnTimerStart.Location = new System.Drawing.Point(249, 20);
-            this.btnTimerStart.Name = "btnTimerStart";
-            this.btnTimerStart.Size = new System.Drawing.Size(75, 23);
-            this.btnTimerStart.TabIndex = 33;
-            this.btnTimerStart.Text = "Start";
-            this.btnTimerStart.UseVisualStyleBackColor = true;
-            this.btnTimerStart.Click += new System.EventHandler(this.btnTimerStart_Click);
+            this.comboWorldList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboWorldList.FormattingEnabled = true;
+            this.comboWorldList.Location = new System.Drawing.Point(6, 22);
+            this.comboWorldList.Name = "comboWorldList";
+            this.comboWorldList.Size = new System.Drawing.Size(237, 20);
+            this.comboWorldList.TabIndex = 32;
+            this.comboWorldList.Click += new System.EventHandler(this.comboWorldList_Click);
             // 
             // MainForm
             // 
@@ -948,7 +951,7 @@
             this.Controls.Add(this.grpTimer);
             this.Controls.Add(this.grpFreeze);
             this.Controls.Add(this.grpWorldControl);
-            this.Controls.Add(this.grpWebServer);
+            this.Controls.Add(this.grpWorldList);
             this.Controls.Add(this.grpPlayers);
             this.Controls.Add(this.grpGiveItem);
             this.Controls.Add(this.grpOption);
@@ -982,8 +985,7 @@
             this.grpOption.ResumeLayout(false);
             this.grpOption.PerformLayout();
             this.grpPlayers.ResumeLayout(false);
-            this.grpWebServer.ResumeLayout(false);
-            this.grpWebServer.PerformLayout();
+            this.grpWorldList.ResumeLayout(false);
             this.grpWorldControl.ResumeLayout(false);
             this.grpWorldControl.PerformLayout();
             this.contextMenuPlayerList.ResumeLayout(false);
@@ -1050,9 +1052,8 @@
         private System.Windows.Forms.ListBox playerList;
         private System.Windows.Forms.Button btnWebStart;
         private System.Windows.Forms.Button btnWebStop;
-        private System.Windows.Forms.GroupBox grpWebServer;
+        private System.Windows.Forms.GroupBox grpWorldList;
         private System.Windows.Forms.Button btnCompress;
-        private System.Windows.Forms.TextBox txtWorldFolder;
         private System.Windows.Forms.GroupBox grpWorldControl;
         private System.Windows.Forms.Button btnWorldMove;
         private System.Windows.Forms.Button btnWorldCreate;
@@ -1072,6 +1073,7 @@
         private System.Windows.Forms.Button btnTimerStart;
         private System.Windows.Forms.Label lblTimer;
         private System.Windows.Forms.NumericUpDown numTimerSec;
+        private System.Windows.Forms.ComboBox comboWorldList;
     }
 }
 

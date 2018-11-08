@@ -846,6 +846,23 @@ namespace MinecraftServerLauncher
         }
 
         /// <summary>
+        /// When player is in other world (not "world" world), change world weather
+        /// </summary>
+        /// <param name="weather"></param>
+        private void weatherPlayer(string weather)
+        {
+            if (playerList.Items.Count > 0)
+            {
+                MinecraftServer.Command("weatherplayer " + weather + " " + playerList.Items[0]);
+            }
+            else
+            {
+                MinecraftServer.Command("weatherplayer " + weather);
+            }
+
+        }
+
+        /// <summary>
         /// Compress world directory from minecraft server directory to desktop.
         /// </summary>
         /// <param name="sender"></param>
@@ -854,21 +871,12 @@ namespace MinecraftServerLauncher
         {
             string worldDirectory = "";
 
-            if (txtWorldFolder.Text.ToLower() == "logs" ||
-                txtWorldFolder.Text.ToLower() == "plugins" ||
-                txtWorldFolder.Text.ToLower() == "scriptcraft" ||
-                txtWorldFolder.Text.ToLower() == "webserver")
-            {
-                txtConsole.Text += "오류: 해당 디렉토리는 맵 디렉토리가 아닙니다." + Environment.NewLine;
+            if (comboWorldList.SelectedItem == null) {
                 return;
-            }
-            else if (txtWorldFolder.Text != "")
-            {
-                worldDirectory = txtWorldFolder.Text;
             }
             else
             {
-                worldDirectory = "world";
+                worldDirectory = comboWorldList.SelectedItem.ToString();
             }
 
             string directoryPath = FixPath(executablePath) + worldDirectory; // sourceDir
@@ -880,11 +888,15 @@ namespace MinecraftServerLauncher
             {
                 if (File.Exists(zipFilePath)) // Check zipFile exist
                 {
-                    File.Delete(zipFilePath); // Delete previous zipFile to overwrite zipFile
+                    //File.Delete(zipFilePath); // Delete previous zipFile to overwrite zipFile
+                    txtConsole.Text += "오류: 바탕화면에 이미 " + zipFileName + " 파일이 존재하여 압축할 수 없습니다." + Environment.NewLine;
+                    return;
                 }
                 if (Directory.Exists(newPath)) // Check destDir exist
                 {
-                    Directory.Delete(newPath, true); // Delete previous destDir to overwrite destDir
+                    //Directory.Delete(newPath, true); // Delete previous destDir to overwrite destDir
+                    txtConsole.Text += "오류: 바탕화면에 " + worldDirectory + " 디렉토리가 존재하여 압축할 수 없습니다." + Environment.NewLine;
+                    return;
                 }
                 Directory.CreateDirectory(newPath); // Create new destDir
                 DirectoryCopy(directoryPath, newPath, true); // Copy from source to destination
@@ -892,10 +904,12 @@ namespace MinecraftServerLauncher
                 Directory.Delete(newPath, true); // Delete destDir
 
                 txtConsole.Text += "바탕화면에 " + zipFileName + " 파일이 생성되었습니다." + Environment.NewLine;
+                return;
             }
             else
             {
                 txtConsole.Text += "오류: " + worldDirectory + " 디렉토리가 존재하지 않습니다." + Environment.NewLine;
+                return;
             }
         }
 
@@ -916,24 +930,6 @@ namespace MinecraftServerLauncher
             {
                 txtConsole.Text += "생성할 맵 이름을 입력해주세요." + Environment.NewLine;
             }
-
-        }
-
-        /// <summary>
-        /// When player is in other world (not "world" world), change world weather
-        /// </summary>
-        /// <param name="weather"></param>
-        private void weatherPlayer(string weather)
-        {
-            if (playerList.Items.Count > 0)
-            {
-                MinecraftServer.Command("weatherplayer " + weather + " " + playerList.Items[0]);
-            }
-            else
-            {
-                MinecraftServer.Command("weatherplayer " + weather);
-            }
-            
         }
 
         /// <summary>
@@ -1270,5 +1266,25 @@ namespace MinecraftServerLauncher
         }
 
         #endregion
+
+        private void comboWorldList_Click(object sender, EventArgs e)
+        {
+            string[] worldDirectories = Directory.GetDirectories(executablePath);
+            comboWorldList.Items.Clear();
+            string directoryName = "";
+            foreach (string s in Directory.GetDirectories(executablePath))
+            {
+                directoryName = s.Remove(0, executablePath.Length+1);
+                if (directoryName.ToLower() != "logs" &&
+                    directoryName.ToLower() != "plugins" &&
+                    directoryName.ToLower() != "scriptcraft" &&
+                    directoryName.ToLower() != "webserver" &&
+                    directoryName.ToLower() != "world_nether" &&
+                    directoryName.ToLower() != "world_the_end")
+                {
+                    comboWorldList.Items.Add(directoryName);
+                }
+            }
+        }
     }
 }
