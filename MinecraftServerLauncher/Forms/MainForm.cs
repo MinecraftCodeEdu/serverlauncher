@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Management;
 using System.IO.Compression;
+using Microsoft.Win32;
 
 namespace MinecraftServerLauncher
 {
@@ -451,9 +452,35 @@ namespace MinecraftServerLauncher
                 comboItemName.SelectedIndex = 0;
             }
         }
+
+        /// <summary>
+        /// Update world list when user clickes combobox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void comboWorldList_Click(object sender, EventArgs e)
+        {
+            string[] worldDirectories = Directory.GetDirectories(executablePath);
+            comboWorldList.Items.Clear();
+            string directoryName = "";
+            foreach (string s in Directory.GetDirectories(executablePath))
+            {
+                directoryName = s.Remove(0, executablePath.Length + 1);
+                if (directoryName.ToLower() != "logs" &&
+                    directoryName.ToLower() != "plugins" &&
+                    directoryName.ToLower() != "scriptcraft" &&
+                    directoryName.ToLower() != "webserver" &&
+                    directoryName.ToLower() != "world_nether" &&
+                    directoryName.ToLower() != "world_the_end")
+                {
+                    comboWorldList.Items.Add(directoryName);
+                }
+            }
+        }
+
         #endregion
 
-        #region ===== Form Events =====
+        #region ===== MainForm Events =====
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -500,8 +527,8 @@ namespace MinecraftServerLauncher
             btnWebStop.Enabled = false;
             
             txtTeacherIPaddress.Text = GetLocalIPAddress();
+            checkNodejsInstalled();
         }
-
 
         /// <summary>
         /// When Mainform closes, server stop.
@@ -1035,21 +1062,6 @@ namespace MinecraftServerLauncher
 
         #endregion
 
-        #region ===== Constructor =====
-
-        /// <summary>
-        /// MainForm Constructor
-        /// </summary>
-        public MainForm()
-        {
-            InitializeComponent();
-
-            this.Shown += MainForm_Shown;
-        }
-
-
-        #endregion
-
         #region ===== WebServer Handling =====
 
         /// <summary>
@@ -1152,7 +1164,7 @@ namespace MinecraftServerLauncher
         }
 
         #endregion
-         
+
         #region Method: FixPath
 
         /// <summary>
@@ -1214,6 +1226,108 @@ namespace MinecraftServerLauncher
 
         #endregion
 
+        #region Method: checkNodejsInstalled
+
+        /// <summary>
+        /// Check Node.js is installed
+        /// </summary>
+        private void checkNodejsInstalled()
+        {
+            try
+            {
+                string value64 = string.Empty;
+                string value32 = string.Empty;
+                string NodejsVerMessage = "현재 Node.js 버전 : ";
+
+                RegistryKey localKey = RegistryKey.OpenBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, RegistryView.Registry64);
+                localKey = localKey.OpenSubKey(@"SOFTWARE\Node.js");
+
+                RegistryKey localKey32 = RegistryKey.OpenBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, RegistryView.Registry32);
+                localKey32 = localKey32.OpenSubKey(@"SOFTWARE\Node.js");
+
+                if (localKey == null && localKey32 == null)
+                {
+                    showNodejsDialog();
+
+                    return;
+                }
+                else if (localKey != null && localKey32 != null)
+                {
+                    if (localKey.GetValue("Version") != null)
+                    {
+                        value64 = localKey.GetValue("Version").ToString();
+                        txtConsole.Text += NodejsVerMessage + value64 + Environment.NewLine;
+                    }
+                    else if (localKey32.GetValue("Version") != null)
+                    {
+                        value32 = localKey32.GetValue("Version").ToString();
+                        txtConsole.Text += NodejsVerMessage + value32 + Environment.NewLine;
+                    }
+                    else
+                    {
+                        showNodejsDialog();
+                    }
+
+                    return;
+                }
+                else if (localKey != null)
+                {
+                    if (localKey.GetValue("Version") != null)
+                    {
+                        value64 = localKey.GetValue("Version").ToString();
+                        txtConsole.Text += NodejsVerMessage + value64 + Environment.NewLine;
+                    }
+                    else
+                    {
+                        showNodejsDialog();
+                    }
+
+                    return;
+                }
+                else if (localKey32 != null)
+                {
+                    if (localKey32.GetValue("Version") != null)
+                    {
+                        value32 = localKey32.GetValue("Version").ToString();
+                        txtConsole.Text += NodejsVerMessage + value32 + Environment.NewLine;
+                    }
+                    else
+                    {
+                        showNodejsDialog();
+                    }
+
+                    return;
+                }
+
+            }
+            catch (Exception ex)  //just for demonstration...it's always best to handle specific exceptions
+            {
+                //react appropriately
+                txtConsole.Text += ex + Environment.NewLine;
+            }
+        }
+
+        /// <summary>
+        /// When Node.js isn't installed, ask the user to download Node.js.
+        /// </summary>
+        private void showNodejsDialog()
+        {
+            string message = "Node.js가 설치되어 있지 않아 프로그램이 제대로 동작하지 않을 수 있습니다. Node.js 다운로드 페이지로 이동하시겠습니까?";
+            string title = "Coala Launcher";
+            string notInstatllMessage = "Node.js가 설치되어 있지 않습니다.";
+
+            if (MessageBox.Show(
+message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk
+) == DialogResult.Yes)
+            {
+                System.Diagnostics.Process.Start("https://nodejs.org/ko/");
+            }
+
+            txtConsole.Text += notInstatllMessage + Environment.NewLine;
+        }
+
+        #endregion
+
         #endregion
 
         #region ===== ContextMenu Control =====
@@ -1267,24 +1381,19 @@ namespace MinecraftServerLauncher
 
         #endregion
 
-        private void comboWorldList_Click(object sender, EventArgs e)
+        #region ===== Constructor =====
+
+        /// <summary>
+        /// MainForm Constructor
+        /// </summary>
+        public MainForm()
         {
-            string[] worldDirectories = Directory.GetDirectories(executablePath);
-            comboWorldList.Items.Clear();
-            string directoryName = "";
-            foreach (string s in Directory.GetDirectories(executablePath))
-            {
-                directoryName = s.Remove(0, executablePath.Length+1);
-                if (directoryName.ToLower() != "logs" &&
-                    directoryName.ToLower() != "plugins" &&
-                    directoryName.ToLower() != "scriptcraft" &&
-                    directoryName.ToLower() != "webserver" &&
-                    directoryName.ToLower() != "world_nether" &&
-                    directoryName.ToLower() != "world_the_end")
-                {
-                    comboWorldList.Items.Add(directoryName);
-                }
-            }
+            InitializeComponent();
+
+            //this.Shown += MainForm_Shown;
         }
+
+        #endregion
+
     }
 }

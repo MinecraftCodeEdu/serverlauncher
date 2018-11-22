@@ -71,6 +71,8 @@
             this.btnGive = new System.Windows.Forms.Button();
             this.comboItemCategory = new System.Windows.Forms.ComboBox();
             this.grpDisable = new System.Windows.Forms.GroupBox();
+            this.btnWebStop = new System.Windows.Forms.Button();
+            this.btnWebStart = new System.Windows.Forms.Button();
             this.grpOption = new System.Windows.Forms.GroupBox();
             this.chkCommandPaused = new System.Windows.Forms.CheckBox();
             this.chkPreventExplode = new System.Windows.Forms.CheckBox();
@@ -82,9 +84,8 @@
             this.grpPlayers = new System.Windows.Forms.GroupBox();
             this.btnUnfreezeAll = new System.Windows.Forms.Button();
             this.btnFreezeAll = new System.Windows.Forms.Button();
-            this.btnWebStart = new System.Windows.Forms.Button();
-            this.btnWebStop = new System.Windows.Forms.Button();
             this.grpWorldList = new System.Windows.Forms.GroupBox();
+            this.comboWorldList = new System.Windows.Forms.ComboBox();
             this.btnCompress = new System.Windows.Forms.Button();
             this.grpWorldControl = new System.Windows.Forms.GroupBox();
             this.btnWorldMove = new System.Windows.Forms.Button();
@@ -102,7 +103,6 @@
             this.btnTimerStart = new System.Windows.Forms.Button();
             this.lblTimer = new System.Windows.Forms.Label();
             this.numTimerSec = new System.Windows.Forms.NumericUpDown();
-            this.comboWorldList = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.grpServerControl.SuspendLayout();
             this.grpGamemode.SuspendLayout();
@@ -604,6 +604,28 @@
             this.grpDisable.Text = "Disable";
             this.grpDisable.Visible = false;
             // 
+            // btnWebStop
+            // 
+            this.btnWebStop.Location = new System.Drawing.Point(330, 77);
+            this.btnWebStop.Name = "btnWebStop";
+            this.btnWebStop.Size = new System.Drawing.Size(75, 23);
+            this.btnWebStop.TabIndex = 28;
+            this.btnWebStop.Text = "웹서버정지";
+            this.btnWebStop.UseVisualStyleBackColor = true;
+            this.btnWebStop.Visible = false;
+            this.btnWebStop.Click += new System.EventHandler(this.btnWebStop_Click);
+            // 
+            // btnWebStart
+            // 
+            this.btnWebStart.Location = new System.Drawing.Point(330, 59);
+            this.btnWebStart.Name = "btnWebStart";
+            this.btnWebStart.Size = new System.Drawing.Size(75, 23);
+            this.btnWebStart.TabIndex = 27;
+            this.btnWebStart.Text = "웹서버시작";
+            this.btnWebStart.UseVisualStyleBackColor = true;
+            this.btnWebStart.Visible = false;
+            this.btnWebStart.Click += new System.EventHandler(this.btnWebStart_Click);
+            // 
             // grpOption
             // 
             this.grpOption.Controls.Add(this.chkCommandPaused);
@@ -730,28 +752,6 @@
             this.btnFreezeAll.UseVisualStyleBackColor = true;
             this.btnFreezeAll.Click += new System.EventHandler(this.btnFreezeAll_Click);
             // 
-            // btnWebStart
-            // 
-            this.btnWebStart.Location = new System.Drawing.Point(330, 59);
-            this.btnWebStart.Name = "btnWebStart";
-            this.btnWebStart.Size = new System.Drawing.Size(75, 23);
-            this.btnWebStart.TabIndex = 27;
-            this.btnWebStart.Text = "웹서버시작";
-            this.btnWebStart.UseVisualStyleBackColor = true;
-            this.btnWebStart.Visible = false;
-            this.btnWebStart.Click += new System.EventHandler(this.btnWebStart_Click);
-            // 
-            // btnWebStop
-            // 
-            this.btnWebStop.Location = new System.Drawing.Point(330, 77);
-            this.btnWebStop.Name = "btnWebStop";
-            this.btnWebStop.Size = new System.Drawing.Size(75, 23);
-            this.btnWebStop.TabIndex = 28;
-            this.btnWebStop.Text = "웹서버정지";
-            this.btnWebStop.UseVisualStyleBackColor = true;
-            this.btnWebStop.Visible = false;
-            this.btnWebStop.Click += new System.EventHandler(this.btnWebStop_Click);
-            // 
             // grpWorldList
             // 
             this.grpWorldList.Controls.Add(this.comboWorldList);
@@ -762,6 +762,16 @@
             this.grpWorldList.TabIndex = 29;
             this.grpWorldList.TabStop = false;
             this.grpWorldList.Text = "World List";
+            // 
+            // comboWorldList
+            // 
+            this.comboWorldList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboWorldList.FormattingEnabled = true;
+            this.comboWorldList.Location = new System.Drawing.Point(6, 22);
+            this.comboWorldList.Name = "comboWorldList";
+            this.comboWorldList.Size = new System.Drawing.Size(237, 20);
+            this.comboWorldList.TabIndex = 32;
+            this.comboWorldList.Click += new System.EventHandler(this.comboWorldList_Click);
             // 
             // btnCompress
             // 
@@ -932,16 +942,6 @@
             0,
             0,
             0});
-            // 
-            // comboWorldList
-            // 
-            this.comboWorldList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboWorldList.FormattingEnabled = true;
-            this.comboWorldList.Location = new System.Drawing.Point(6, 22);
-            this.comboWorldList.Name = "comboWorldList";
-            this.comboWorldList.Size = new System.Drawing.Size(237, 20);
-            this.comboWorldList.TabIndex = 32;
-            this.comboWorldList.Click += new System.EventHandler(this.comboWorldList_Click);
             // 
             // MainForm
             // 

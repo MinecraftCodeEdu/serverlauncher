@@ -432,12 +432,12 @@ namespace CSharpLibs.Minecraft
         #region ===== Thread Handling =====
 
         private Thread ServerThread = null;
-        string playerName = "";
-        string playerUUID = "";
 
         private void RunServer()
         {
             bool ServerShutdownSignaled = false;
+            string playerName = "";
+            string playerUUID = "";
 
             OnServerStarting();
 
@@ -460,7 +460,7 @@ namespace CSharpLibs.Minecraft
             while (!proc.StandardOutput.EndOfStream)
             {
                 string line = proc.StandardOutput.ReadLine();
-                Console.WriteLine(line);
+
                 if (line.IndexOf("]:") > -1)
                 {
                     LogEntry entry = ParseConsoleLine(line);
@@ -490,39 +490,40 @@ namespace CSharpLibs.Minecraft
                     {
                         if(playerName.Length > 0 && playerUUID.Length > 0)
                         {
-                            if(entry.LogMessage.IndexOf(playerName) > -1)
-                            {
-                                // We need to split the IP the player is connecting from...
-                                // Then we need to add this player to the online list
-                                // For reference:
-                                // [06:30:34 INFO]: Mateatdang[/172.30.1.55:61105] logged in with entity id 245 at ([world]4.805233873224047, 4.0, 21.78309565413898)
-                                string ipString = entry.LogMessage.Substring(entry.LogMessage.IndexOf('[') + 1, entry.LogMessage.Length - (entry.LogMessage.IndexOf('[') + 1));
-                                ipString = ipString.Substring(0, ipString.IndexOf(':'));
-                                // Just in case: remove any leading slash
-                                ipString = ipString.Replace("/", "");
-                                // Lets see if there's a period inhere
-                                if (ipString.IndexOf('.') > -1)
-                                {
-                                    // Split the possible IP string into it's individual parts
-                                    string[] ipParts = ipString.Split('.');
-                                    // Convert it into a byte array
-                                    byte[] ip = ConvertIP(ipParts);
+                            // PlayerJoinBug
+                            //if(entry.LogMessage.IndexOf(playerName) > -1)
+                            //{
+                            //    // We need to split the IP the player is connecting from...
+                            //    // Then we need to add this player to the online list
+                            //    // For reference:
+                            //    // [06:30:34 INFO]: Mateatdang[/172.30.1.55:61105] logged in with entity id 245 at ([world]4.805233873224047, 4.0, 21.78309565413898)
+                            //    string ipString = entry.LogMessage.Substring(entry.LogMessage.IndexOf('[') + 1, entry.LogMessage.Length - (entry.LogMessage.IndexOf('[') + 1));
+                            //    ipString = ipString.Substring(0, ipString.IndexOf(':'));
+                            //    // Just in case: remove any leading slash
+                            //    ipString = ipString.Replace("/", "");
+                            //    // Lets see if there's a period inhere
+                            //    if (ipString.IndexOf('.') > -1)
+                            //    {
+                            //        // Split the possible IP string into it's individual parts
+                            //        string[] ipParts = ipString.Split('.');
+                            //        // Convert it into a byte array
+                            //        byte[] ip = ConvertIP(ipParts);
 
-                                    // Create the player profile...
-                                    PlayerProfile player = new PlayerProfile(DateTime.Now, playerName, playerUUID, ip);
+                            //        // Create the player profile...
+                            //        PlayerProfile player = new PlayerProfile(DateTime.Now, playerName, playerUUID, ip);
                                     
-                                    // And add it to the current online list
-                                    lock (mvarOnlinePlayers)
-                                    {
-                                        // Ensures that we keep0 synchronized data across threads
-                                        mvarOnlinePlayers.Add(player);
-                                    }
-                                    //NOTE: if needed, add an event that we can raise when a player joins
-                                    System.Diagnostics.Debug.WriteLine("### >>> " + player.Name + " has joined the game.");
-                                    // Raise the PlayerJoined event
-                                    OnPlayerJoined(ref player);
-                                }
-                            }
+                            //        // And add it to the current online list
+                            //        lock (mvarOnlinePlayers)
+                            //        {
+                            //            // Ensures that we keep0 synchronized data across threads
+                            //            mvarOnlinePlayers.Add(player);
+                            //        }
+                            //        //NOTE: if needed, add an event that we can raise when a player joins
+                            //        System.Diagnostics.Debug.WriteLine("### >>> " + player.Name + " has joined the game.");
+                            //        // Raise the PlayerJoined event
+                            //        OnPlayerJoined(ref player);
+                            //    }
+                            //}
                         }
                     }
                     else if (entry.LogMessage.ToLower().IndexOf(" lost connection:") > -1)
@@ -607,6 +608,23 @@ namespace CSharpLibs.Minecraft
                         playerUUID = entry.LogMessage.Substring(entry.LogMessage.LastIndexOf(' ') + 1, entry.LogMessage.Length - (entry.LogMessage.LastIndexOf(' ') + 1));
                         playerName = entry.LogMessage.Substring(0, entry.LogMessage.LastIndexOf(" is "));
                         playerName = playerName.Substring(playerName.LastIndexOf(' ') + 1, playerName.Length - (playerName.LastIndexOf(' ') + 1));
+
+                        // Temp IP address
+                        byte[] ip = new byte[] { 0, 0, 0, 0 };
+
+                        // Create the player profile...
+                        PlayerProfile player = new PlayerProfile(DateTime.Now, playerName, playerUUID, ip);
+
+                        // And add it to the current online list
+                        lock (mvarOnlinePlayers)
+                        {
+                            // Ensures that we keep0 synchronized data across threads
+                            mvarOnlinePlayers.Add(player);
+                        }
+                        //NOTE: if needed, add an event that we can raise when a player joins
+                        System.Diagnostics.Debug.WriteLine("### >>> " + player.Name + " has joined the game.");
+                        // Raise the PlayerJoined event
+                        OnPlayerJoined(ref player);
                     }
                     //NOTE: We can also add in a connection counter, based on the source: [User Authenticator #1]
                     // Simple thing to do: cut away "user authenticator" and convert to int - expose as property, job done! :)
