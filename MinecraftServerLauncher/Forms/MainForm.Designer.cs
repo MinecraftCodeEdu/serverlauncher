@@ -98,11 +98,15 @@
             this.freezeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.unfreezeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bringToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.grpFreeze = new System.Windows.Forms.GroupBox();
+            this.grpPlayerControl = new System.Windows.Forms.GroupBox();
             this.grpTimer = new System.Windows.Forms.GroupBox();
             this.btnTimerStart = new System.Windows.Forms.Button();
             this.lblTimer = new System.Windows.Forms.Label();
             this.numTimerSec = new System.Windows.Forms.NumericUpDown();
+            this.btnBlind = new System.Windows.Forms.Button();
+            this.btnUnBlind = new System.Windows.Forms.Button();
+            this.blindToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.unblindToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.grpServerControl.SuspendLayout();
             this.grpGamemode.SuspendLayout();
@@ -117,7 +121,7 @@
             this.grpWorldList.SuspendLayout();
             this.grpWorldControl.SuspendLayout();
             this.contextMenuPlayerList.SuspendLayout();
-            this.grpFreeze.SuspendLayout();
+            this.grpPlayerControl.SuspendLayout();
             this.grpTimer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numTimerSec)).BeginInit();
             this.SuspendLayout();
@@ -839,9 +843,11 @@
             this.deopToolStripMenuItem,
             this.freezeToolStripMenuItem,
             this.unfreezeToolStripMenuItem,
+            this.blindToolStripMenuItem,
+            this.unblindToolStripMenuItem,
             this.bringToToolStripMenuItem});
             this.contextMenuPlayerList.Name = "contextMenuPlayerList";
-            this.contextMenuPlayerList.Size = new System.Drawing.Size(134, 114);
+            this.contextMenuPlayerList.Size = new System.Drawing.Size(153, 180);
             this.contextMenuPlayerList.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuPlayerList_ItemClicked);
             // 
             // opToolStripMenuItem
@@ -874,16 +880,18 @@
             this.bringToToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.bringToToolStripMenuItem.Text = "Teleport all";
             // 
-            // grpFreeze
+            // grpPlayerControl
             // 
-            this.grpFreeze.Controls.Add(this.btnUnfreezeAll);
-            this.grpFreeze.Controls.Add(this.btnFreezeAll);
-            this.grpFreeze.Location = new System.Drawing.Point(348, 130);
-            this.grpFreeze.Name = "grpFreeze";
-            this.grpFreeze.Size = new System.Drawing.Size(330, 53);
-            this.grpFreeze.TabIndex = 31;
-            this.grpFreeze.TabStop = false;
-            this.grpFreeze.Text = "Freeze";
+            this.grpPlayerControl.Controls.Add(this.btnUnBlind);
+            this.grpPlayerControl.Controls.Add(this.btnBlind);
+            this.grpPlayerControl.Controls.Add(this.btnUnfreezeAll);
+            this.grpPlayerControl.Controls.Add(this.btnFreezeAll);
+            this.grpPlayerControl.Location = new System.Drawing.Point(348, 130);
+            this.grpPlayerControl.Name = "grpPlayerControl";
+            this.grpPlayerControl.Size = new System.Drawing.Size(330, 53);
+            this.grpPlayerControl.TabIndex = 31;
+            this.grpPlayerControl.TabStop = false;
+            this.grpPlayerControl.Text = "Player Control";
             // 
             // grpTimer
             // 
@@ -943,13 +951,45 @@
             0,
             0});
             // 
+            // btnBlind
+            // 
+            this.btnBlind.Location = new System.Drawing.Point(168, 20);
+            this.btnBlind.Name = "btnBlind";
+            this.btnBlind.Size = new System.Drawing.Size(75, 23);
+            this.btnBlind.TabIndex = 33;
+            this.btnBlind.Text = "Blind";
+            this.btnBlind.UseVisualStyleBackColor = true;
+            this.btnBlind.Click += new System.EventHandler(this.btnBlind_Click);
+            // 
+            // btnUnBlind
+            // 
+            this.btnUnBlind.Location = new System.Drawing.Point(249, 20);
+            this.btnUnBlind.Name = "btnUnBlind";
+            this.btnUnBlind.Size = new System.Drawing.Size(75, 23);
+            this.btnUnBlind.TabIndex = 34;
+            this.btnUnBlind.Text = "Unblind";
+            this.btnUnBlind.UseVisualStyleBackColor = true;
+            this.btnUnBlind.Click += new System.EventHandler(this.btnUnBlind_Click);
+            // 
+            // blindToolStripMenuItem
+            // 
+            this.blindToolStripMenuItem.Name = "blindToolStripMenuItem";
+            this.blindToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.blindToolStripMenuItem.Text = "Blind";
+            // 
+            // unblindToolStripMenuItem
+            // 
+            this.unblindToolStripMenuItem.Name = "unblindToolStripMenuItem";
+            this.unblindToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.unblindToolStripMenuItem.Text = "Unblind";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(864, 502);
             this.Controls.Add(this.grpTimer);
-            this.Controls.Add(this.grpFreeze);
+            this.Controls.Add(this.grpPlayerControl);
             this.Controls.Add(this.grpWorldControl);
             this.Controls.Add(this.grpWorldList);
             this.Controls.Add(this.grpPlayers);
@@ -967,7 +1007,7 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Minecraft Server Launcher";
+            this.Text = "Coala Launcher";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
@@ -989,7 +1029,7 @@
             this.grpWorldControl.ResumeLayout(false);
             this.grpWorldControl.PerformLayout();
             this.contextMenuPlayerList.ResumeLayout(false);
-            this.grpFreeze.ResumeLayout(false);
+            this.grpPlayerControl.ResumeLayout(false);
             this.grpTimer.ResumeLayout(false);
             this.grpTimer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numTimerSec)).EndInit();
@@ -1068,12 +1108,16 @@
         private System.Windows.Forms.ToolStripMenuItem bringToToolStripMenuItem;
         private System.Windows.Forms.Button btnUnfreezeAll;
         private System.Windows.Forms.Button btnFreezeAll;
-        private System.Windows.Forms.GroupBox grpFreeze;
+        private System.Windows.Forms.GroupBox grpPlayerControl;
         private System.Windows.Forms.GroupBox grpTimer;
         private System.Windows.Forms.Button btnTimerStart;
         private System.Windows.Forms.Label lblTimer;
         private System.Windows.Forms.NumericUpDown numTimerSec;
         private System.Windows.Forms.ComboBox comboWorldList;
+        private System.Windows.Forms.Button btnUnBlind;
+        private System.Windows.Forms.Button btnBlind;
+        private System.Windows.Forms.ToolStripMenuItem blindToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem unblindToolStripMenuItem;
     }
 }
 

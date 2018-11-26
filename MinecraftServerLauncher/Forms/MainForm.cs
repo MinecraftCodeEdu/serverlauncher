@@ -852,6 +852,26 @@ namespace MinecraftServerLauncher
         }
 
         /// <summary>
+        /// make all players blind
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnBlind_Click(object sender, EventArgs e)
+        {
+            MinecraftServer.Command("blind @a");
+        }
+
+        /// <summary>
+        /// make all players unblind
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnUnBlind_Click(object sender, EventArgs e)
+        {
+            MinecraftServer.Command("unblind @a");
+        }
+
+        /// <summary>
         /// Set timer
         /// </summary>
         /// <param name="sender"></param>
@@ -995,7 +1015,7 @@ namespace MinecraftServerLauncher
             grpWeather.Enabled = true;
             grpPlayers.Enabled = true;
             grpWorldControl.Enabled = true;
-            grpFreeze.Enabled = true;
+            grpPlayerControl.Enabled = true;
             grpTimer.Enabled = true;
             btnDefault.Enabled = true;
             btnRefresh.Enabled = true;
@@ -1014,7 +1034,7 @@ namespace MinecraftServerLauncher
             grpWeather.Enabled = false;
             grpPlayers.Enabled = false;
             grpWorldControl.Enabled = false;
-            grpFreeze.Enabled = false;
+            grpPlayerControl.Enabled = false;
             grpTimer.Enabled = false;
             btnDefault.Enabled = false;
             btnRefresh.Enabled = false;
@@ -1376,6 +1396,14 @@ message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk
             else if (e.ClickedItem.ToString().ToLower() == "teleport all")
             {
                 MinecraftServer.Command("come " + playerList.SelectedItem.ToString());
+            }
+            else if (e.ClickedItem.ToString().ToLower() == "blind")
+            {
+                MinecraftServer.Command("blind " + playerList.SelectedItem.ToString());
+            }
+            else if (e.ClickedItem.ToString().ToLower() == "unblind")
+            {
+                MinecraftServer.Command("unblind " + playerList.SelectedItem.ToString());
             }
         }
 
