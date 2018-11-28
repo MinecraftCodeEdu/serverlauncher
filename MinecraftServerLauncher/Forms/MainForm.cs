@@ -781,6 +781,18 @@ namespace MinecraftServerLauncher
             }
         }
 
+        private void chkAllowFlight_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAllowFlight.Checked == true)
+            {
+                MinecraftServer.Command("allowflight true");
+            }
+            else
+            {
+                MinecraftServer.Command("allowflight false");
+            }
+        }
+
         /// <summary>
         /// Set default class settings (Disabled)
         /// </summary>
@@ -1009,7 +1021,7 @@ namespace MinecraftServerLauncher
         {
             grpDifficulty.Enabled = true;
             grpGamemode.Enabled = true;
-            grpGiveItem.Enabled = true;
+            grpGive.Enabled = true;
             grpOption.Enabled = true;
             grpTime.Enabled = true;
             grpWeather.Enabled = true;
@@ -1028,7 +1040,7 @@ namespace MinecraftServerLauncher
         {
             grpDifficulty.Enabled = false;
             grpGamemode.Enabled = false;
-            grpGiveItem.Enabled = false;
+            grpGive.Enabled = false;
             grpOption.Enabled = false;
             grpTime.Enabled = false;
             grpWeather.Enabled = false;
@@ -1050,7 +1062,7 @@ namespace MinecraftServerLauncher
         public void removeSourcecode()
         {
             string execPath = executablePath;
-            string codeSubdir = "scriptcraft\\plugins\\blocklycraft\\";
+            string codeSubdir = "scriptcraft\\plugins\\usercodes\\";
 
             if (execPath.Length > 0)
             {

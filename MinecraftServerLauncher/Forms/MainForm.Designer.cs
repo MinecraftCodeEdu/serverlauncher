@@ -64,7 +64,7 @@
             this.btnWeatherThunder = new System.Windows.Forms.Button();
             this.btnWeatherRain = new System.Windows.Forms.Button();
             this.btnWeatherClear = new System.Windows.Forms.Button();
-            this.grpGiveItem = new System.Windows.Forms.GroupBox();
+            this.grpGive = new System.Windows.Forms.GroupBox();
             this.comboItemPlayer = new System.Windows.Forms.ComboBox();
             this.numItem = new System.Windows.Forms.NumericUpDown();
             this.comboItemName = new System.Windows.Forms.ComboBox();
@@ -74,6 +74,7 @@
             this.btnWebStop = new System.Windows.Forms.Button();
             this.btnWebStart = new System.Windows.Forms.Button();
             this.grpOption = new System.Windows.Forms.GroupBox();
+            this.chkAllowFlight = new System.Windows.Forms.CheckBox();
             this.chkCommandPaused = new System.Windows.Forms.CheckBox();
             this.chkPreventExplode = new System.Windows.Forms.CheckBox();
             this.chkWorldEdit = new System.Windows.Forms.CheckBox();
@@ -97,23 +98,23 @@
             this.deopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.freezeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.unfreezeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.blindToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.unblindToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bringToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grpPlayerControl = new System.Windows.Forms.GroupBox();
+            this.btnUnBlind = new System.Windows.Forms.Button();
+            this.btnBlind = new System.Windows.Forms.Button();
             this.grpTimer = new System.Windows.Forms.GroupBox();
             this.btnTimerStart = new System.Windows.Forms.Button();
             this.lblTimer = new System.Windows.Forms.Label();
             this.numTimerSec = new System.Windows.Forms.NumericUpDown();
-            this.btnBlind = new System.Windows.Forms.Button();
-            this.btnUnBlind = new System.Windows.Forms.Button();
-            this.blindToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.unblindToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.grpServerControl.SuspendLayout();
             this.grpGamemode.SuspendLayout();
             this.grpDifficulty.SuspendLayout();
             this.grpTime.SuspendLayout();
             this.grpWeather.SuspendLayout();
-            this.grpGiveItem.SuspendLayout();
+            this.grpGive.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numItem)).BeginInit();
             this.grpDisable.SuspendLayout();
             this.grpOption.SuspendLayout();
@@ -513,19 +514,19 @@
             this.btnWeatherClear.UseVisualStyleBackColor = true;
             this.btnWeatherClear.Click += new System.EventHandler(this.btnWeatherClear_Click);
             // 
-            // grpGiveItem
+            // grpGive
             // 
-            this.grpGiveItem.Controls.Add(this.comboItemPlayer);
-            this.grpGiveItem.Controls.Add(this.numItem);
-            this.grpGiveItem.Controls.Add(this.comboItemName);
-            this.grpGiveItem.Controls.Add(this.btnGive);
-            this.grpGiveItem.Controls.Add(this.comboItemCategory);
-            this.grpGiveItem.Location = new System.Drawing.Point(12, 307);
-            this.grpGiveItem.Name = "grpGiveItem";
-            this.grpGiveItem.Size = new System.Drawing.Size(330, 72);
-            this.grpGiveItem.TabIndex = 22;
-            this.grpGiveItem.TabStop = false;
-            this.grpGiveItem.Text = "Give item";
+            this.grpGive.Controls.Add(this.comboItemPlayer);
+            this.grpGive.Controls.Add(this.numItem);
+            this.grpGive.Controls.Add(this.comboItemName);
+            this.grpGive.Controls.Add(this.btnGive);
+            this.grpGive.Controls.Add(this.comboItemCategory);
+            this.grpGive.Location = new System.Drawing.Point(12, 307);
+            this.grpGive.Name = "grpGive";
+            this.grpGive.Size = new System.Drawing.Size(330, 72);
+            this.grpGive.TabIndex = 22;
+            this.grpGive.TabStop = false;
+            this.grpGive.Text = "Give";
             // 
             // comboItemPlayer
             // 
@@ -632,6 +633,7 @@
             // 
             // grpOption
             // 
+            this.grpOption.Controls.Add(this.chkAllowFlight);
             this.grpOption.Controls.Add(this.chkCommandPaused);
             this.grpOption.Controls.Add(this.chkPreventExplode);
             this.grpOption.Controls.Add(this.chkWorldEdit);
@@ -644,6 +646,17 @@
             this.grpOption.TabIndex = 24;
             this.grpOption.TabStop = false;
             this.grpOption.Text = "Option";
+            // 
+            // chkAllowFlight
+            // 
+            this.chkAllowFlight.AutoSize = true;
+            this.chkAllowFlight.Location = new System.Drawing.Point(168, 64);
+            this.chkAllowFlight.Name = "chkAllowFlight";
+            this.chkAllowFlight.Size = new System.Drawing.Size(76, 16);
+            this.chkAllowFlight.TabIndex = 26;
+            this.chkAllowFlight.Text = "비행 허용";
+            this.chkAllowFlight.UseVisualStyleBackColor = true;
+            this.chkAllowFlight.CheckedChanged += new System.EventHandler(this.chkAllowFlight_CheckedChanged);
             // 
             // chkCommandPaused
             // 
@@ -672,7 +685,7 @@
             // chkWorldEdit
             // 
             this.chkWorldEdit.AutoSize = true;
-            this.chkWorldEdit.Location = new System.Drawing.Point(6, 64);
+            this.chkWorldEdit.Location = new System.Drawing.Point(6, 42);
             this.chkWorldEdit.Name = "chkWorldEdit";
             this.chkWorldEdit.Size = new System.Drawing.Size(104, 16);
             this.chkWorldEdit.TabIndex = 25;
@@ -696,7 +709,7 @@
             this.chkPreventPK.AutoSize = true;
             this.chkPreventPK.Checked = true;
             this.chkPreventPK.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkPreventPK.Location = new System.Drawing.Point(6, 42);
+            this.chkPreventPK.Location = new System.Drawing.Point(6, 64);
             this.chkPreventPK.Name = "chkPreventPK";
             this.chkPreventPK.Size = new System.Drawing.Size(144, 16);
             this.chkPreventPK.TabIndex = 25;
@@ -847,7 +860,7 @@
             this.unblindToolStripMenuItem,
             this.bringToToolStripMenuItem});
             this.contextMenuPlayerList.Name = "contextMenuPlayerList";
-            this.contextMenuPlayerList.Size = new System.Drawing.Size(153, 180);
+            this.contextMenuPlayerList.Size = new System.Drawing.Size(134, 158);
             this.contextMenuPlayerList.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuPlayerList_ItemClicked);
             // 
             // opToolStripMenuItem
@@ -874,6 +887,18 @@
             this.unfreezeToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.unfreezeToolStripMenuItem.Text = "Unfreeze";
             // 
+            // blindToolStripMenuItem
+            // 
+            this.blindToolStripMenuItem.Name = "blindToolStripMenuItem";
+            this.blindToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.blindToolStripMenuItem.Text = "Blind";
+            // 
+            // unblindToolStripMenuItem
+            // 
+            this.unblindToolStripMenuItem.Name = "unblindToolStripMenuItem";
+            this.unblindToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.unblindToolStripMenuItem.Text = "Unblind";
+            // 
             // bringToToolStripMenuItem
             // 
             this.bringToToolStripMenuItem.Name = "bringToToolStripMenuItem";
@@ -892,6 +917,26 @@
             this.grpPlayerControl.TabIndex = 31;
             this.grpPlayerControl.TabStop = false;
             this.grpPlayerControl.Text = "Player Control";
+            // 
+            // btnUnBlind
+            // 
+            this.btnUnBlind.Location = new System.Drawing.Point(249, 20);
+            this.btnUnBlind.Name = "btnUnBlind";
+            this.btnUnBlind.Size = new System.Drawing.Size(75, 23);
+            this.btnUnBlind.TabIndex = 34;
+            this.btnUnBlind.Text = "Unblind";
+            this.btnUnBlind.UseVisualStyleBackColor = true;
+            this.btnUnBlind.Click += new System.EventHandler(this.btnUnBlind_Click);
+            // 
+            // btnBlind
+            // 
+            this.btnBlind.Location = new System.Drawing.Point(168, 20);
+            this.btnBlind.Name = "btnBlind";
+            this.btnBlind.Size = new System.Drawing.Size(75, 23);
+            this.btnBlind.TabIndex = 33;
+            this.btnBlind.Text = "Blind";
+            this.btnBlind.UseVisualStyleBackColor = true;
+            this.btnBlind.Click += new System.EventHandler(this.btnBlind_Click);
             // 
             // grpTimer
             // 
@@ -951,38 +996,6 @@
             0,
             0});
             // 
-            // btnBlind
-            // 
-            this.btnBlind.Location = new System.Drawing.Point(168, 20);
-            this.btnBlind.Name = "btnBlind";
-            this.btnBlind.Size = new System.Drawing.Size(75, 23);
-            this.btnBlind.TabIndex = 33;
-            this.btnBlind.Text = "Blind";
-            this.btnBlind.UseVisualStyleBackColor = true;
-            this.btnBlind.Click += new System.EventHandler(this.btnBlind_Click);
-            // 
-            // btnUnBlind
-            // 
-            this.btnUnBlind.Location = new System.Drawing.Point(249, 20);
-            this.btnUnBlind.Name = "btnUnBlind";
-            this.btnUnBlind.Size = new System.Drawing.Size(75, 23);
-            this.btnUnBlind.TabIndex = 34;
-            this.btnUnBlind.Text = "Unblind";
-            this.btnUnBlind.UseVisualStyleBackColor = true;
-            this.btnUnBlind.Click += new System.EventHandler(this.btnUnBlind_Click);
-            // 
-            // blindToolStripMenuItem
-            // 
-            this.blindToolStripMenuItem.Name = "blindToolStripMenuItem";
-            this.blindToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.blindToolStripMenuItem.Text = "Blind";
-            // 
-            // unblindToolStripMenuItem
-            // 
-            this.unblindToolStripMenuItem.Name = "unblindToolStripMenuItem";
-            this.unblindToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.unblindToolStripMenuItem.Text = "Unblind";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -993,7 +1006,7 @@
             this.Controls.Add(this.grpWorldControl);
             this.Controls.Add(this.grpWorldList);
             this.Controls.Add(this.grpPlayers);
-            this.Controls.Add(this.grpGiveItem);
+            this.Controls.Add(this.grpGive);
             this.Controls.Add(this.grpOption);
             this.Controls.Add(this.grpDisable);
             this.Controls.Add(this.grpWeather);
@@ -1018,7 +1031,7 @@
             this.grpDifficulty.ResumeLayout(false);
             this.grpTime.ResumeLayout(false);
             this.grpWeather.ResumeLayout(false);
-            this.grpGiveItem.ResumeLayout(false);
+            this.grpGive.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numItem)).EndInit();
             this.grpDisable.ResumeLayout(false);
             this.grpDisable.PerformLayout();
@@ -1073,7 +1086,7 @@
         private System.Windows.Forms.Button btnWeatherThunder;
         private System.Windows.Forms.Button btnWeatherRain;
         private System.Windows.Forms.Button btnWeatherClear;
-        private System.Windows.Forms.GroupBox grpGiveItem;
+        private System.Windows.Forms.GroupBox grpGive;
         private System.Windows.Forms.GroupBox grpDisable;
         private System.Windows.Forms.Button btnGive;
         private System.Windows.Forms.ComboBox comboItemName;
@@ -1118,6 +1131,7 @@
         private System.Windows.Forms.Button btnBlind;
         private System.Windows.Forms.ToolStripMenuItem blindToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unblindToolStripMenuItem;
+        private System.Windows.Forms.CheckBox chkAllowFlight;
     }
 }
 
