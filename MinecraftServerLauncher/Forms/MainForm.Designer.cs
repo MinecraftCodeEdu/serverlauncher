@@ -33,7 +33,7 @@
             this.txtMinecraftServerPath = new System.Windows.Forms.TextBox();
             this.btnOpen = new System.Windows.Forms.Button();
             this.lblMemoryInfo = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numMemory = new System.Windows.Forms.NumericUpDown();
             this.btnSave = new System.Windows.Forms.Button();
             this.grpServerControl = new System.Windows.Forms.GroupBox();
             this.btnRefresh = new System.Windows.Forms.Button();
@@ -108,7 +108,9 @@
             this.btnTimerStart = new System.Windows.Forms.Button();
             this.lblTimer = new System.Windows.Forms.Label();
             this.numTimerSec = new System.Windows.Forms.NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.grpMemory = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.numMemory)).BeginInit();
             this.grpServerControl.SuspendLayout();
             this.grpGamemode.SuspendLayout();
             this.grpDifficulty.SuspendLayout();
@@ -125,6 +127,7 @@
             this.grpPlayerControl.SuspendLayout();
             this.grpTimer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numTimerSec)).BeginInit();
+            this.grpMemory.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblPathInfo
@@ -165,29 +168,34 @@
             this.lblMemoryInfo.Text = "&Memory";
             this.lblMemoryInfo.Visible = false;
             // 
-            // numericUpDown1
+            // numMemory
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(318, 32);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            8192,
+            this.numMemory.Increment = new decimal(new int[] {
+            1024,
             0,
             0,
             0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
+            this.numMemory.Location = new System.Drawing.Point(6, 22);
+            this.numMemory.Maximum = new decimal(new int[] {
+            16384,
+            0,
+            0,
+            0});
+            this.numMemory.Minimum = new decimal(new int[] {
             256,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 21);
-            this.numericUpDown1.TabIndex = 4;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            256,
+            this.numMemory.Name = "numMemory";
+            this.numMemory.Size = new System.Drawing.Size(122, 21);
+            this.numMemory.TabIndex = 4;
+            this.numMemory.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numMemory.Value = new decimal(new int[] {
+            1024,
             0,
             0,
             0});
-            this.numericUpDown1.Visible = false;
-            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            this.numMemory.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // btnSave
             // 
@@ -597,7 +605,6 @@
             this.grpDisable.Controls.Add(this.btnWebStart);
             this.grpDisable.Controls.Add(this.btnOpen);
             this.grpDisable.Controls.Add(this.lblMemoryInfo);
-            this.grpDisable.Controls.Add(this.numericUpDown1);
             this.grpDisable.Controls.Add(this.btnStart2);
             this.grpDisable.Controls.Add(this.btnSave);
             this.grpDisable.Controls.Add(this.btnServerInfo);
@@ -735,16 +742,16 @@
             this.playerList.ItemHeight = 12;
             this.playerList.Location = new System.Drawing.Point(6, 20);
             this.playerList.Name = "playerList";
-            this.playerList.Size = new System.Drawing.Size(156, 200);
+            this.playerList.Size = new System.Drawing.Size(156, 141);
             this.playerList.TabIndex = 19;
             this.playerList.MouseUp += new System.Windows.Forms.MouseEventHandler(this.playerList_MouseUp);
             // 
             // grpPlayers
             // 
             this.grpPlayers.Controls.Add(this.playerList);
-            this.grpPlayers.Location = new System.Drawing.Point(684, 12);
+            this.grpPlayers.Location = new System.Drawing.Point(684, 71);
             this.grpPlayers.Name = "grpPlayers";
-            this.grpPlayers.Size = new System.Drawing.Size(168, 230);
+            this.grpPlayers.Size = new System.Drawing.Size(168, 171);
             this.grpPlayers.TabIndex = 26;
             this.grpPlayers.TabStop = false;
             this.grpPlayers.Text = "Players";
@@ -996,11 +1003,32 @@
             0,
             0});
             // 
+            // grpMemory
+            // 
+            this.grpMemory.Controls.Add(this.label1);
+            this.grpMemory.Controls.Add(this.numMemory);
+            this.grpMemory.Location = new System.Drawing.Point(684, 12);
+            this.grpMemory.Name = "grpMemory";
+            this.grpMemory.Size = new System.Drawing.Size(168, 53);
+            this.grpMemory.TabIndex = 33;
+            this.grpMemory.TabStop = false;
+            this.grpMemory.Text = "Memory";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(134, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(24, 12);
+            this.label1.TabIndex = 34;
+            this.label1.Text = "MB";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(864, 502);
+            this.Controls.Add(this.grpMemory);
             this.Controls.Add(this.grpTimer);
             this.Controls.Add(this.grpPlayerControl);
             this.Controls.Add(this.grpWorldControl);
@@ -1024,7 +1052,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMemory)).EndInit();
             this.grpServerControl.ResumeLayout(false);
             this.grpServerControl.PerformLayout();
             this.grpGamemode.ResumeLayout(false);
@@ -1046,6 +1074,8 @@
             this.grpTimer.ResumeLayout(false);
             this.grpTimer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numTimerSec)).EndInit();
+            this.grpMemory.ResumeLayout(false);
+            this.grpMemory.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1057,7 +1087,7 @@
         private System.Windows.Forms.TextBox txtMinecraftServerPath;
         private System.Windows.Forms.Button btnOpen;
         private System.Windows.Forms.Label lblMemoryInfo;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numMemory;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.GroupBox grpServerControl;
         private System.Windows.Forms.Button btnStop;
@@ -1132,6 +1162,8 @@
         private System.Windows.Forms.ToolStripMenuItem blindToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unblindToolStripMenuItem;
         private System.Windows.Forms.CheckBox chkAllowFlight;
+        private System.Windows.Forms.GroupBox grpMemory;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -278,6 +278,9 @@ namespace MinecraftServerLauncher
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             btnSave.Enabled = true;
+            
+            config.Save();
+            config.Load();
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -305,7 +308,7 @@ namespace MinecraftServerLauncher
                 {
                     config.MinecraftPath = filePathName.Substring(0, filePathName.LastIndexOf('\\') + 1);
                     config.MinecraftJar = filePathName.Substring(filePathName.LastIndexOf('\\') + 1, filePathName.Length - (filePathName.LastIndexOf('\\') + 1));
-                    config.MemorySize = (int)numericUpDown1.Value;
+                    config.MemorySize = (int)numMemory.Value;
                     config.Save();
                     btnSave.Enabled = false;
                 }
@@ -382,7 +385,7 @@ namespace MinecraftServerLauncher
                 {
                     config.MinecraftPath = curPath;
                     config.MinecraftJar = curJar;
-                    config.MemorySize = 1024;
+                    config.MemorySize = Convert.ToInt32(numMemory.Value);
                     config.Save();
 
                     if (config.MinecraftPath.Length > 0 && config.MinecraftJar.Length > 0 && config.MemorySize > 0)
@@ -505,11 +508,11 @@ namespace MinecraftServerLauncher
                     path += '\\';
                 }
                 txtMinecraftServerPath.Text = path + config.MinecraftJar;
-                numericUpDown1.Value = config.MemorySize;
+                numMemory.Value = config.MemorySize;
             }
             else
             {
-                numericUpDown1.Value = 256;
+                numMemory.Value = 256;
             }
 
             btnSave.Enabled = false;

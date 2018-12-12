@@ -440,7 +440,7 @@ namespace CSharpLibs.Minecraft
             string playerUUID = "";
 
             OnServerStarting();
-
+            
             Process proc = new Process
             {
                 StartInfo = new ProcessStartInfo
@@ -679,7 +679,7 @@ namespace CSharpLibs.Minecraft
             {
                 if (!Locked)
                 {
-                    if (value >= 256 && value < 16384) //TODO: later on: replace with this comp's physical memory max
+                    if (value >= 256 && value <= 16384) //TODO: later on: replace with this comp's physical memory max
                     {
                         mvarMemorySize = value;
                     }
@@ -869,7 +869,7 @@ namespace CSharpLibs.Minecraft
                     {
                         mvarServerJar = serverJar;
 
-                        if (memorySize >= 256 && memorySize < 16384)
+                        if (memorySize >= 256 && memorySize <= 16384)
                         {
                             mvarMemorySize = memorySize;
                         }
@@ -937,6 +937,8 @@ namespace CSharpLibs.Minecraft
             {
                 if (RCon.IsConnected)
                 {
+                    Locked = false;
+
                     RCon.Execute("stop");
                 }
             }

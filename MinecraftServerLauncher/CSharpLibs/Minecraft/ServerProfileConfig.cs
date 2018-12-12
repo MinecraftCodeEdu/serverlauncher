@@ -106,6 +106,13 @@ namespace CSharpLibs.Minecraft
             SaveConfig();
         }
 
+        public void Load()
+        {
+            //TODO: maybe add in a check whether something has changed
+            // If changes exist, then do the save, otherwise skip
+            LoadConfig();
+        }
+
         #endregion
 
         #region ===== Constructor =====
