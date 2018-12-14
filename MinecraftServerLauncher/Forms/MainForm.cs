@@ -512,7 +512,7 @@ namespace MinecraftServerLauncher
             }
             else
             {
-                numMemory.Value = 256;
+                numMemory.Value = 1024;
             }
 
             btnSave.Enabled = false;

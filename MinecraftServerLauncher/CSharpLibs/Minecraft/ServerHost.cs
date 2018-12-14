@@ -667,7 +667,7 @@ namespace CSharpLibs.Minecraft
 
         #region Property: MemorySize
 
-        private int mvarMemorySize = 256;
+        private int mvarMemorySize = 1024;
 
         /// <summary>
         /// Determines the memory set aside for java to run this Minecraft server instance.
@@ -679,7 +679,7 @@ namespace CSharpLibs.Minecraft
             {
                 if (!Locked)
                 {
-                    if (value >= 256 && value <= 16384) //TODO: later on: replace with this comp's physical memory max
+                    if (value >= 1024 && value <= 16384) //TODO: later on: replace with this comp's physical memory max
                     {
                         mvarMemorySize = value;
                     }
@@ -869,7 +869,7 @@ namespace CSharpLibs.Minecraft
                     {
                         mvarServerJar = serverJar;
 
-                        if (memorySize >= 256 && memorySize <= 16384)
+                        if (memorySize >= 1024 && memorySize <= 16384)
                         {
                             mvarMemorySize = memorySize;
                         }
@@ -953,7 +953,7 @@ namespace CSharpLibs.Minecraft
         public ServerHost(int id)
         {
             mvarID = id;
-            mvarMemorySize = 256;
+            mvarMemorySize = 1024;
             mvarServerJar = "";
             mvarServerPath = "";
             Locked = false;

@@ -182,7 +182,7 @@
             0,
             0});
             this.numMemory.Minimum = new decimal(new int[] {
-            256,
+            1024,
             0,
             0,
             0});
