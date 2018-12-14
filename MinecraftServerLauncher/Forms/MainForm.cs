@@ -19,6 +19,7 @@ using Newtonsoft.Json.Linq;
 using System.Management;
 using System.IO.Compression;
 using Microsoft.Win32;
+using System.Net.NetworkInformation;
 
 namespace MinecraftServerLauncher
 {
@@ -560,15 +561,25 @@ namespace MinecraftServerLauncher
         /// <returns>serverhost IP</returns>
         public static string GetLocalIPAddress()
         {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
+            NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces();
+            foreach (NetworkInterface adapter in adapters)
             {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                IPInterfaceProperties adapterProperties = adapter.GetIPProperties();
+                GatewayIPAddressInformationCollection addresses = adapterProperties.GatewayAddresses;
+                if (addresses.Count > 0)
                 {
-                    return ip.ToString();
+                    foreach (UnicastIPAddressInformation ip in adapter.GetIPProperties().UnicastAddresses)
+                    {
+                        if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                        {
+                            //Console.WriteLine(ip.Address.ToString());
+                            return ip.Address.ToString();
+                        }
+                    }
                 }
             }
-            throw new Exception("No network adapters with an IPv4 address in the system!");
+
+            return null;
         }
 
         #endregion
