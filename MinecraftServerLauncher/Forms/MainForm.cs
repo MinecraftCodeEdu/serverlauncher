@@ -1064,6 +1064,7 @@ namespace MinecraftServerLauncher
             grpTimer.Enabled = false;
             btnDefault.Enabled = false;
             btnRefresh.Enabled = false;
+            btnStop.Enabled = false;
         }
 
         #endregion

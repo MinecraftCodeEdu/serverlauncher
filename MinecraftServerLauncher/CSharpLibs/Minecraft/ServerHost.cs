@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CSharpLibs.Minecraft
 {
@@ -575,6 +576,23 @@ namespace CSharpLibs.Minecraft
                             }
                         }
                     }
+                    else if (entry.LogMessage.ToLower().IndexOf("라이센스가 만료되었습니다.") > -1)
+                    {
+                        if (!ServerShutdownSignaled)
+                        {
+                            // Tell RCon to disconnect, if it's running
+                            if (RCon.IsConnected)
+                            {
+                                RCon.Disconnect();
+                            }
+                            showLicenseExpiredDialog();
+                            proc.Kill();
+                            OnServerShuttingDown();        
+                            
+                            // Indicate that we have already completed this event handling
+                            ServerShutdownSignaled = true;
+                        }
+                    }
 
                     // Force the playerName and playerUUID variables empty
                     playerName = "";
@@ -938,7 +956,8 @@ namespace CSharpLibs.Minecraft
                 if (RCon.IsConnected)
                 {
                     Locked = false;
-
+                    OnServerShuttingDown();
+                    mvarOnlinePlayers.Clear();
                     RCon.Execute("stop");
                 }
             }
@@ -978,5 +997,16 @@ namespace CSharpLibs.Minecraft
         }
 
         #endregion
+
+        /// <summary>
+        /// When license is expired, show this dialog.
+        /// </summary>
+        private void showLicenseExpiredDialog()
+        {
+            string message = "라이센스가 만료되었습니다.\n아래의 이메일로 문의해주시기 바랍니다.\nwebmaster@coalasw.com";
+            string title = "Coala Launcher";
+
+            MessageBox.Show(message, title);
+        }
     }
 }
