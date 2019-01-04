@@ -71,8 +71,6 @@
             this.btnGive = new System.Windows.Forms.Button();
             this.comboItemCategory = new System.Windows.Forms.ComboBox();
             this.grpDisable = new System.Windows.Forms.GroupBox();
-            this.btnWebStop = new System.Windows.Forms.Button();
-            this.btnWebStart = new System.Windows.Forms.Button();
             this.grpOption = new System.Windows.Forms.GroupBox();
             this.chkAllowFlight = new System.Windows.Forms.CheckBox();
             this.chkCommandPaused = new System.Windows.Forms.CheckBox();
@@ -601,8 +599,6 @@
             this.grpDisable.Controls.Add(this.btnDefault);
             this.grpDisable.Controls.Add(this.lblPathInfo);
             this.grpDisable.Controls.Add(this.txtMinecraftServerPath);
-            this.grpDisable.Controls.Add(this.btnWebStop);
-            this.grpDisable.Controls.Add(this.btnWebStart);
             this.grpDisable.Controls.Add(this.btnOpen);
             this.grpDisable.Controls.Add(this.lblMemoryInfo);
             this.grpDisable.Controls.Add(this.btnStart2);
@@ -615,28 +611,6 @@
             this.grpDisable.TabStop = false;
             this.grpDisable.Text = "Disable";
             this.grpDisable.Visible = false;
-            // 
-            // btnWebStop
-            // 
-            this.btnWebStop.Location = new System.Drawing.Point(330, 77);
-            this.btnWebStop.Name = "btnWebStop";
-            this.btnWebStop.Size = new System.Drawing.Size(75, 23);
-            this.btnWebStop.TabIndex = 28;
-            this.btnWebStop.Text = "웹서버정지";
-            this.btnWebStop.UseVisualStyleBackColor = true;
-            this.btnWebStop.Visible = false;
-            this.btnWebStop.Click += new System.EventHandler(this.btnWebStop_Click);
-            // 
-            // btnWebStart
-            // 
-            this.btnWebStart.Location = new System.Drawing.Point(330, 59);
-            this.btnWebStart.Name = "btnWebStart";
-            this.btnWebStart.Size = new System.Drawing.Size(75, 23);
-            this.btnWebStart.TabIndex = 27;
-            this.btnWebStart.Text = "웹서버시작";
-            this.btnWebStart.UseVisualStyleBackColor = true;
-            this.btnWebStart.Visible = false;
-            this.btnWebStart.Click += new System.EventHandler(this.btnWebStart_Click);
             // 
             // grpOption
             // 
@@ -1133,8 +1107,6 @@
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.GroupBox grpPlayers;
         private System.Windows.Forms.ListBox playerList;
-        private System.Windows.Forms.Button btnWebStart;
-        private System.Windows.Forms.Button btnWebStop;
         private System.Windows.Forms.GroupBox grpWorldList;
         private System.Windows.Forms.Button btnCompress;
         private System.Windows.Forms.GroupBox grpWorldControl;

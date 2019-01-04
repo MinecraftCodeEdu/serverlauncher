@@ -33,6 +33,8 @@ namespace MinecraftServerLauncher
         System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
         string processName = null;
 
+        const int WebserverPORT = 3000;
+
         #region ===== Run Server Handling =====
 
         private ServerHost MinecraftServer = null;
@@ -53,8 +55,8 @@ namespace MinecraftServerLauncher
 
             // Past this line, it's thread safe and copied over to the main thread.
 
-            System.Diagnostics.Debug.WriteLine("<<" + serverHostID.ToString() + ">> Minecraft server is starting up.");
-            txtConsole.Text += "Minecraft server is starting up..." + Environment.NewLine;
+            System.Diagnostics.Debug.WriteLine("<<" + serverHostID.ToString() + ">> Minecraftserver is starting up.");
+            txtConsole.Text += "Minecraftserver is starting up..." + Environment.NewLine;
             btnStart.Enabled = false;
         }
 
@@ -91,7 +93,8 @@ namespace MinecraftServerLauncher
             // Yup..
 
             System.Diagnostics.Debug.WriteLine("<<" + serverHostID.ToString() + ">> Minecraft server started!");
-
+            txtConsole.Text += "WebServer URL - http://"+ GetLocalIPAddress() + ":" + WebserverPORT + Environment.NewLine;
+            
             btnStop.Enabled = true;
 
             MinecraftServerRunning = true;
@@ -367,6 +370,7 @@ namespace MinecraftServerLauncher
         private void btnStart_Click(object sender, EventArgs e)
         {
             removeSourcecode();
+            webserverStart();
 
             string curPath = executablePath;
             string curJar = "MinecraftServer.Jar";
@@ -422,6 +426,7 @@ namespace MinecraftServerLauncher
         private void btnStop_Click(object sender, EventArgs e)
         {
             MinecraftServer.Stop();
+            webserverStop();
         }
 
         private void txtConsole_TextChanged(object sender, EventArgs e)
@@ -528,7 +533,6 @@ namespace MinecraftServerLauncher
             //btnExecute.Enabled = false;
 
             disableButton();
-            btnWebStop.Enabled = false;
             
             txtTeacherIPaddress.Text = GetLocalIPAddress();
             checkNodejsInstalled();
@@ -1111,12 +1115,7 @@ namespace MinecraftServerLauncher
 
         #region ===== WebServer Handling =====
 
-        /// <summary>
-        /// WebServer Start
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnWebStart_Click(object sender, EventArgs e)
+        private void webserverStart()
         {
             try
             {
@@ -1124,13 +1123,11 @@ namespace MinecraftServerLauncher
                 {
                     startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
                     startInfo.FileName = "cmd.exe";
-                    startInfo.Arguments = "/C cd ./webServer && npm install -g express && npm start";
+                    startInfo.Arguments = "/C node scriptcraft/www/bin/www";
                     process.StartInfo = startInfo;
                     process.Start();
                     processName = process.ProcessName;
-                    txtConsole.Text += "MinecraftEditorServer is started..." + Environment.NewLine;
-                    btnWebStart.Enabled = false;
-                    btnWebStop.Enabled = true;
+                    txtConsole.Text += "EditorServer is starting up..." + Environment.NewLine;
                 }
                 else
                 {
@@ -1145,12 +1142,7 @@ namespace MinecraftServerLauncher
             }
         }
 
-        /// <summary>
-        /// WebServer Stop
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnWebStop_Click(object sender, EventArgs e)
+        private void webserverStop()
         {
             try
             {
@@ -1159,8 +1151,6 @@ namespace MinecraftServerLauncher
                     KillProcessAndChildren(process.Id);
                     processName = null;
                     txtConsole.Text += "MinecraftEditorServer is stopped..." + Environment.NewLine;
-                    btnWebStart.Enabled = true;
-                    btnWebStop.Enabled = false;
                 }
                 else
                 {
