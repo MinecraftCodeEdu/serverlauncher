@@ -469,12 +469,11 @@ namespace MinecraftServerLauncher
         /// <param name="e"></param>
         private void comboWorldList_Click(object sender, EventArgs e)
         {
-            string[] worldDirectories = Directory.GetDirectories(executablePath);
             comboWorldList.Items.Clear();
             string directoryName = "";
-            foreach (string s in Directory.GetDirectories(executablePath))
+            foreach (string s in Directory.GetDirectories(FixPath(executablePath)))
             {
-                directoryName = s.Remove(0, executablePath.Length + 1);
+                directoryName = s.Remove(0, FixPath(executablePath).Length);
                 if (directoryName.ToLower() != "logs" &&
                     directoryName.ToLower() != "plugins" &&
                     directoryName.ToLower() != "scriptcraft" &&
@@ -535,7 +534,7 @@ namespace MinecraftServerLauncher
             disableButton();
             
             txtTeacherIPaddress.Text = GetLocalIPAddress();
-            checkNodejsInstalled();
+            checkNodejsInstalled();  
         }
 
         /// <summary>
@@ -552,6 +551,7 @@ namespace MinecraftServerLauncher
             else
             {
                 MinecraftServer.Command("stop");
+                webserverStop();
             }
         }
 
