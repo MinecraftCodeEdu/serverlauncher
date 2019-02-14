@@ -475,6 +475,7 @@ namespace MinecraftServerLauncher
             {
                 directoryName = s.Remove(0, FixPath(executablePath).Length);
                 if (directoryName.ToLower() != "logs" &&
+                    directoryName.ToLower() != "license" &&
                     directoryName.ToLower() != "plugins" &&
                     directoryName.ToLower() != "scriptcraft" &&
                     directoryName.ToLower() != "webserver" &&
