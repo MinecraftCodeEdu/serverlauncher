@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.lblPathInfo = new System.Windows.Forms.Label();
             this.txtMinecraftServerPath = new System.Windows.Forms.TextBox();
             this.btnOpen = new System.Windows.Forms.Button();
@@ -1019,10 +1020,11 @@
             this.Controls.Add(this.txtCommand);
             this.Controls.Add(this.grpServerControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Coala Launcher 1.1.9";
+            this.Text = "Coala Launcher 2.0";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);

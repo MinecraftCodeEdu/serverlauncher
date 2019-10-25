@@ -100,7 +100,7 @@ namespace MinecraftServerLauncher
             MinecraftServerRunning = true;
 
             txtCommand.Enabled = true;
-
+            webserverStart();
             enableButton();
         }
 
@@ -145,6 +145,7 @@ namespace MinecraftServerLauncher
             MinecraftServerRunning = false;
 
             txtCommand.Enabled = false;
+            
             disableButton();
         }
 
@@ -162,6 +163,7 @@ namespace MinecraftServerLauncher
             btnStart.Enabled = true;
 
             MinecraftServerRunning = false;
+            webserverStop();
             disableButton();   
         }
 
@@ -370,7 +372,7 @@ namespace MinecraftServerLauncher
         private void btnStart_Click(object sender, EventArgs e)
         {
             removeSourcecode();
-            webserverStart();
+            //webserverStart();
 
             string curPath = executablePath;
             string curJar = "MinecraftServer.Jar";
@@ -426,7 +428,7 @@ namespace MinecraftServerLauncher
         private void btnStop_Click(object sender, EventArgs e)
         {
             MinecraftServer.Stop();
-            webserverStop();
+            //webserverStop();
         }
 
         private void txtConsole_TextChanged(object sender, EventArgs e)
@@ -1155,7 +1157,7 @@ namespace MinecraftServerLauncher
                 }
                 else
                 {
-                    txtConsole.Text += "오류: 웹 서버가 실행 중이지 않습니다." + Environment.NewLine;
+                    //txtConsole.Text += "오류: 웹 서버가 실행 중이지 않습니다." + Environment.NewLine;
                 }
             }
             catch (Exception ex)
